@@ -1,0 +1,22 @@
+{
+  "name": "employee-management-app",
+  "version": "1.0.0",
+  "description": "A LitElement-based employee management application.",
+  "scripts": {
+    "dev": "web-dev-server --open index.html --watch",
+    "serve": "web-dev-server --node-resolve",
+    "test": "web-test-runner --node-resolve --files 'test/**/*.test.js'"
+  },
+  "dependencies": {
+    "lit": "^3.0.2",
+    "@vaadin/router": "^1.7.4"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.36",
+    "@web/test-runner": "^0.13.0",
+    "@web/test-runner-playwright": "^0.9.0",
+    "@open-wc/testing": "^3.0.0"
+  }
+}
+
+
