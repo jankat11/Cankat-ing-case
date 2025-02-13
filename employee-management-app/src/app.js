@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import router from './router.js'; // ✅ Now correctly importing router
+import router from './router.js'; 
 
 class EmployeeManagementApp extends LitElement {
   static styles = css`
