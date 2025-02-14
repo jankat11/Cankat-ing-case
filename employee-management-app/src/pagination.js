@@ -23,7 +23,7 @@ class PaginationComponent extends LitElement {
       padding: 0.5rem 0.8rem;
       border: none;
       border-radius: 50%;
-      background: #fff;
+      background:  #f9f9f9;
       cursor: pointer;
     }
     button.active {

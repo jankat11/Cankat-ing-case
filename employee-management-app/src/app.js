@@ -4,16 +4,23 @@ import { brandColor } from "../constants.js";
 
 class EmployeeManagementApp extends LitElement {
   static styles = css`
+    :host {
+      display: block;
+      font-family: Poppins;
+      margin: 0 auto;
+    }
     .navbar {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      background-color: #fff;
+      margin-bottom: 3rem;
     }
     nav {
       display: flex;
       justify-content: space-around;
       padding: 1rem;
-      gap:2rem
+      gap: 2rem;
     }
     a {
       color: ${unsafeCSS(brandColor)};
@@ -25,7 +32,7 @@ class EmployeeManagementApp extends LitElement {
   render() {
     return html`
       <div class="navbar">
-      <img src="../assests/images/ING_logo.jpg" width=100> 
+        <img src="../assests/images/ING_logo.jpg" width="100" />
         <nav>
           <a href="/employees/page/1" @click="${this.navigate}">Employees</a>
           <a href="/add" @click="${this.navigate}">Add Employee</a>

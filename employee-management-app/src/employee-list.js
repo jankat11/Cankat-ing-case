@@ -1,8 +1,9 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
 import { renderEditIcon, renderDeleteIcon } from "./icons.js";
-import "./pagination.js"; 
+import "./pagination.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
+import { brandColor } from "../constants.js";
 
 class EmployeeList extends LitElement {
   static properties = {
@@ -13,6 +14,97 @@ class EmployeeList extends LitElement {
     currentPage: { type: Number },
   };
 
+  static styles = css`
+    :host {
+      display: block;
+      font-family: Poppins;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .employee-list-wrapper {
+      overflow-x: auto;
+      width: 100%;
+      background-color: #fff;
+    }
+
+    .employee-list {
+      list-style: none;
+      padding: 0;
+      min-width: 800px; /* Daha fazla veri sığması için */
+    }
+
+    .employee-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      min-width: 1280px; /* Scroll için genişlik */
+      position: relative;
+    }
+
+    .employee-name {
+      position: sticky;
+      left: 0;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      min-width: 150px;
+      z-index: 2;
+      background-color: #fff;
+      font-size: 14px;
+   
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .employee-data {
+      display: flex;
+      flex-grow: 1;
+      justify-content: space-between;
+      min-width: 600px;
+      padding-right: 2rem;
+      font-size: 14px;
+    }
+
+    .employee-actions {
+      position: sticky;
+      right: 0;
+      background: #fff;
+      padding: 0.5rem;
+      z-index: 2;
+      display: flex;
+      gap: 0.5rem;
+      min-width: 3.2rem;
+    }
+
+    .employee-actions button {
+      all: unset;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .edit-icon {
+      text-decoration: none;
+      color: inherit;
+      padding-top: 6px;
+    }
+
+    .employee-data div {
+      flex: 1;
+      text-align: center;
+    }
+    .employee-header,
+    .employee-header-data,
+    .employee-header-name {
+      background-color: white;
+      color: ${unsafeCSS(brandColor)};
+      font-size: small !important;
+    }
+  `;
+
   constructor() {
     super();
     this.employees = JSON.parse(localStorage.getItem("employees")) || [];
@@ -22,47 +114,11 @@ class EmployeeList extends LitElement {
     this.currentPage = 1;
   }
 
-  static styles = css`
-    :host {
-      display: block;
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .employee-list {
-      list-style: none;
-      padding: 0;
-      margin: 1rem;
-    }
-    .employee-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      margin-bottom: 0.5rem;
-      border-radius: 4px;
-      background-color: #f9f9f9;
-    }
-    .employee-actions button {
-      all: unset;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-left: 0.5rem;
-    }
-    .edit-icon {
-      text-decoration: none;
-      color: inherit;
-      padding-top: 6px;
-    }
-  `;
-
   // Toplam sayfa sayısını hesapla (her sayfada 5 eleman olacak)
   get totalPages() {
     return Math.ceil(this.employees.length / EMPLOYEES_PER_PAGE);
   }
-  
+
   // Geçerli sayfaya ait elemanları slice'la
   get paginatedEmployees() {
     const start = (this.currentPage - 1) * EMPLOYEES_PER_PAGE;
@@ -72,11 +128,17 @@ class EmployeeList extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('vaadin-router-location-changed', this._onLocationChanged);
+    window.addEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
   }
 
   disconnectedCallback() {
-    window.removeEventListener('vaadin-router-location-changed', this._onLocationChanged);
+    window.removeEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
     super.disconnectedCallback();
   }
 
@@ -92,10 +154,10 @@ class EmployeeList extends LitElement {
       }
     }
   };
-  
+
   onBeforeEnter(location) {
     const { pageNumber } = location.params;
-    this.currentPage = pageNumber ? parseInt(pageNumber, 10) : 1; 
+    this.currentPage = pageNumber ? parseInt(pageNumber, 10) : 1;
   }
 
   navigate(event) {
@@ -122,27 +184,56 @@ class EmployeeList extends LitElement {
 
   render() {
     return html`
-      <ul class="employee-list">
-        ${this.paginatedEmployees.map(
-          (employee, index) => html`
-            <li class="employee-item">
-              <span>${employee.firstName} ${employee.lastName}</span>
-              <div class="employee-actions">
-                <a
-                  class="edit-icon"
-                  href="/edit/${employee.id}"
-                  @click="${this.navigate}"
-                >
-                  ${renderEditIcon()}
-                </a>
-                <button @click=${() => this.deleteEmployee(index)}>
-                  ${renderDeleteIcon()}
-                </button>
-              </div>
-            </li>
-          `
-        )}
-      </ul>
+      <div class="employee-list-wrapper">
+        <ul class="employee-list">
+          <li class="employee-item employee-header">
+            <div class="employee-name employee-header-name">
+              <span> ${"first name"}</span> <span>${"last name"} </span>
+            </div>
+            <div class="employee-data employee-header-data">
+              <div>${"Date of Employement"}</div>
+              <div>${"Date of Birth"}</div>
+              <div>${"Phone"}</div>
+              <div>${"Email"}</div>
+              <div>${"Department"}</div>
+              <div>${"Position"}</div>
+            </div>
+            <div class="employee-actions">
+              <div>actions</div>
+            </div>
+          </li>
+          ${this.paginatedEmployees.map(
+            (employee, index) => html`
+              <li class="employee-item">
+                <div class="employee-name">
+                  <span>${"cankat"}</span> <span>${"güven"}</span>
+                </div>
+
+                <div class="employee-data">
+                  <div>${"23/03/1987"}</div>
+                  <div>${"23/03/1987"}</div>
+                  <div>${"+905055524040"}</div>
+                  <div>${"cankatguven@gmail.com"}</div>
+                  <div>${"Analitics"}</div>
+                  <div>${"Junior"}</div>
+                </div>
+                <div class="employee-actions">
+                  <a
+                    class="edit-icon"
+                    href="/edit/${employee.id}"
+                    @click="${this.navigate}"
+                  >
+                    ${renderEditIcon()}
+                  </a>
+                  <button @click=${() => this.deleteEmployee(index)}>
+                    ${renderDeleteIcon()}
+                  </button>
+                </div>
+              </li>
+            `
+          )}
+        </ul>
+      </div>
 
       <employees-pagination
         .currentPage=${this.currentPage}
