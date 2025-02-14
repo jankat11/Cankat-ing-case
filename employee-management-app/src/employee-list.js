@@ -185,6 +185,15 @@ class EmployeeList extends LitElement {
     }
   }
 
+  formatDate(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
   handlePageChange(e) {
     this.currentPage = e.detail.page;
   }
@@ -221,8 +230,10 @@ class EmployeeList extends LitElement {
                       </div>
 
                       <div class="employee-data">
-                        <div>${"23/03/1987"}</div>
-                        <div>${employee.dateOfBirth}</div>
+                        <div>
+                          ${this.formatDate(employee.dateOfEmployement)}
+                        </div>
+                        <div>${this.formatDate(employee.dateOfBirth)}</div>
                         <div>${employee.phone}</div>
                         <div>${employee.email}</div>
                         <div>${employee.department}</div>

@@ -123,7 +123,14 @@ class EmployeeForm extends LitElement {
             required
           />
           <input
-            type="text"
+            type="date"
+            .value="${this.employee.dateOfEmployement || ""}"
+            @input="${(e) => (this.employee.dateOfEmployement = e.target.value)}"
+            placeholder="Date of Employement"
+            required
+          />
+          <input
+            type="date"
             .value="${this.employee.dateOfBirth || ""}"
             @input="${(e) => (this.employee.dateOfBirth = e.target.value)}"
             placeholder="Date of Birth"
@@ -137,7 +144,7 @@ class EmployeeForm extends LitElement {
             required
           />
           <input
-            type="mail"
+            type="email"
             .value="${this.employee.email || ""}"
             @input="${(e) => (this.employee.email = e.target.value)}"
             placeholder="Email"
