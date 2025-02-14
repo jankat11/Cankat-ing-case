@@ -1,5 +1,6 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import router from './router.js'; 
+import { brandColor } from '../constants.js';
 
 
 class EmployeeManagementApp extends LitElement {
@@ -8,7 +9,7 @@ class EmployeeManagementApp extends LitElement {
       display: flex;
       justify-content: space-around;
       padding: 1rem;
-      background:orange;
+      background: ${unsafeCSS(brandColor)};
       color: white;
     }
     a {
