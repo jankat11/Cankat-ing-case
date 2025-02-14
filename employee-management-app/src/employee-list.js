@@ -68,7 +68,6 @@ class EmployeeList extends LitElement {
 
   render() {
     return html`
-      <!-- Çalışan Listesi -->
       <ul class="employee-list">
         ${this.employees.map(
           (employee, index) => html`
