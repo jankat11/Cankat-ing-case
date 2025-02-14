@@ -65,7 +65,7 @@ export const renderRightArrow = () => html`
   </svg>
 `;
 
-export const renderPeople = () => html`
+export const renderPeopleIcon = () => html`
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style="pointer-events: none;"
@@ -81,7 +81,7 @@ export const renderPeople = () => html`
   </svg>
 `;
 
-export const renderPlus = () => html`
+export const renderPlusIcon = () => html`
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill=${brandColor}

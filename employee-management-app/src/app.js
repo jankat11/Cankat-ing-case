@@ -1,7 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
 import { brandColor } from "../constants.js";
-import { renderPeople, renderPlus } from "./icons.js";
+import { renderPeopleIcon, renderPlusIcon } from "./icons.js";
 
 class EmployeeManagementApp extends LitElement {
   static styles = css`
@@ -61,10 +61,10 @@ class EmployeeManagementApp extends LitElement {
           <img src="../assests/images/ING_logo.jpg" width="100" />
           <nav>
             <a href="/employees/page/1" @click="${this.navigate}"
-              >${renderPeople()} <span>Employees</span></a
+              >${renderPeopleIcon()} <span>Employees</span></a
             >
             <a href="/add" @click="${this.navigate}"
-              >${renderPlus()} <span>Add New</span></a
+              >${renderPlusIcon()} <span>Add New</span></a
             >
           </nav>
         </div>
