@@ -5,8 +5,8 @@ export const renderEditIcon = () => html`
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style="pointer-events: none;"
-    width="20"
-    height="20"
+    width="16"
+    height="16"
     viewBox="0 0 512 512"
     fill=${brandColor}
   >
@@ -22,8 +22,8 @@ export const renderDeleteIcon = () => html`
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style="pointer-events: none;"
-    width="20"
-    height="20"
+    width="16"
+    height="16"
     viewBox="0 0 448 512"
     fill=${brandColor}
   >
@@ -61,6 +61,42 @@ export const renderRightArrow = () => html`
     <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
     <path
       d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+    />
+  </svg>
+`;
+
+export const renderPeople = () => html`
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    style="pointer-events: none;"
+    width="16"
+    height="16"
+    viewBox="0 0 640 512"
+    fill=${brandColor}
+  >
+    <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+    <path
+      d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM609.3 512l-137.8 0c5.4-9.4 8.6-20.3 8.6-32l0-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2l61.4 0C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"
+    />
+  </svg>
+`;
+
+export const renderPlus = () => html`
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill=${brandColor}
+    style="pointer-events: none;"
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="size-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 4.5v15m7.5-7.5h-15"
     />
   </svg>
 `;

@@ -31,7 +31,7 @@ class EmployeeList extends LitElement {
     .employee-list {
       list-style: none;
       padding: 0;
-      min-width: 800px; /* Daha fazla veri sığması için */
+      min-width: 800px; 
     }
 
     .employee-item {
@@ -40,7 +40,7 @@ class EmployeeList extends LitElement {
       padding: 0.5rem 0rem;
       margin-bottom: 0.5rem;
       border-radius: 4px;
-      min-width: 1280px; /* Scroll için genişlik */
+      min-width: 1280px; 
       position: relative;
     }
 
@@ -53,7 +53,7 @@ class EmployeeList extends LitElement {
       z-index: 2;
       background-color: #fff;
       font-size: 14px;
-   
+
       display: flex;
       justify-content: space-around;
     }
@@ -102,6 +102,12 @@ class EmployeeList extends LitElement {
       background-color: white;
       color: ${unsafeCSS(brandColor)};
       font-size: small !important;
+    }
+    .employee-list-title {
+      color: ${unsafeCSS(brandColor)};
+      font-size: 20px;
+      font-weight: 500;
+      padding-bottom: 16px;
     }
   `;
 
@@ -184,6 +190,7 @@ class EmployeeList extends LitElement {
 
   render() {
     return html`
+      <h1 class="employee-list-title">Employee List</h1>
       <div class="employee-list-wrapper">
         <ul class="employee-list">
           <li class="employee-item employee-header">
