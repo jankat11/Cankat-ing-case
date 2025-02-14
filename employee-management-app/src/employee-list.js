@@ -4,7 +4,7 @@ import { renderEditIcon, renderDeleteIcon } from "./icons.js";
 import "./pagination.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
 import { brandColor } from "../constants.js";
-
+import { initialEmployees } from "../initialData.js";
 class EmployeeList extends LitElement {
   static properties = {
     employees: { type: Array },
@@ -116,7 +116,7 @@ class EmployeeList extends LitElement {
 
   constructor() {
     super();
-    this.employees = JSON.parse(localStorage.getItem("employees")) || [];
+    this.employees = JSON.parse(localStorage.getItem("employees")) || initialEmployees;
     this.showModal = false;
     this.firstName = "";
     this.lastName = "";
@@ -165,6 +165,9 @@ class EmployeeList extends LitElement {
   };
 
   onBeforeEnter(location) {
+    if(!JSON.parse(localStorage.getItem("employees"))) {
+      localStorage.setItem("employees", JSON.stringify(initialEmployees))
+    }
     const { pageNumber } = location.params;
     this.currentPage = pageNumber ? parseInt(pageNumber, 10) : 1;
   }

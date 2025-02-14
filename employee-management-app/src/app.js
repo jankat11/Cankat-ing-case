@@ -83,4 +83,8 @@ class EmployeeManagementApp extends LitElement {
   }
 }
 
+
+
+[{"firstName":"ismail","lastName":"şahin","id":1739562750919,"dateOfEmployement":"2024-10-06","dateOfBirth":"2017-02-14","phone":"+905000000000","email":"ismail@gmail.com","department":"human resources","position":"senior"},{"firstName":"alihan","lastName":"yıldız","id":1739562665755,"dateOfEmployement":"2025-02-26","dateOfBirth":"2025-02-15","phone":"+905000000000","email":"ali@gmail.com","department":"analitics","position":"junior"}]
+
 customElements.define("employee-management-app", EmployeeManagementApp);

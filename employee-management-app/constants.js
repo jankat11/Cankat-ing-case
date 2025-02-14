@@ -1,2 +1,2 @@
 export const brandColor = "#ff6200"
-export const EMPLOYEES_PER_PAGE = 3;
+export const EMPLOYEES_PER_PAGE = 6;
