@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import router from "./router.js";
+import { EMPLOYEES_PER_PAGE } from "../constants.js";
 
 class EmployeeForm extends LitElement {
   static properties = {
@@ -127,7 +128,7 @@ class EmployeeForm extends LitElement {
       this.openModal();
     } else {
       employees.unshift(this.employee);
-      this.saveAndRoute(employees);
+      this.saveAndRedirect(employees);
     }
   }
 
@@ -138,12 +139,21 @@ class EmployeeForm extends LitElement {
       (emp) => emp.id === this.employee.id
     );
     employees[editedIndex] = this.employee;
-    this.saveAndRoute(employees);
+    const page = Math.floor(editedIndex / EMPLOYEES_PER_PAGE) + 1;
+    this.saveAndRedirect(employees, page);
   }
-  saveAndRoute(employees) {
+
+  saveAndRedirect(employees, page) {
     localStorage.setItem("employees", JSON.stringify(employees));
-    router.render("/").catch((err) => console.error("Routing error:", err));
-    window.history.pushState({}, "", "/");
+    if (this.isEdit) {
+      router
+        .render(`/employees/page/${page}`)
+        .catch((err) => console.error("Routing error:", err));
+      window.history.pushState({}, "", `/employees/page/${page}`);
+    } else {
+      router.render("/").catch((err) => console.error("Routing error:", err));
+      window.history.pushState({}, "", "/");
+    }
   }
   openModal() {
     this.showModal = true;
@@ -153,6 +163,5 @@ class EmployeeForm extends LitElement {
     this.showModal = false;
   }
 }
-
 
 customElements.define("employee-form", EmployeeForm);

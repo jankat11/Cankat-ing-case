@@ -16,6 +16,7 @@ router.setRoutes([
   { path: '/', component: 'employee-list' },
   { path: '/employees', component: 'employee-list' },
   { path: '/add', component: 'employee-form' },
+  { path: '/employees/page/:pageNumber', component: 'employee-list' },
   { path: '/edit/:id', component: 'employee-form' },
   { path: '(.*)', redirect: '/' } 
 ]);

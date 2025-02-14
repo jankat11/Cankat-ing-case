@@ -62,12 +62,40 @@ class EmployeeList extends LitElement {
   get totalPages() {
     return Math.ceil(this.employees.length / EMPLOYEES_PER_PAGE);
   }
-
+  
   // Geçerli sayfaya ait elemanları slice'la
   get paginatedEmployees() {
     const start = (this.currentPage - 1) * EMPLOYEES_PER_PAGE;
     const end = start + EMPLOYEES_PER_PAGE;
     return this.employees.slice(start, end);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('vaadin-router-location-changed', this._onLocationChanged);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('vaadin-router-location-changed', this._onLocationChanged);
+    super.disconnectedCallback();
+  }
+
+  // Route değiştiğinde yeni URL'i kontrol edip currentPage'i güncelleyen metot
+  _onLocationChanged = (e) => {
+    const { pathname } = e.detail.location;
+    // Örneğin, /employees/page/3 şeklinde bir URL varsa:
+    const match = pathname.match(/^\/employees\/page\/(\d+)/);
+    if (match) {
+      const newPage = parseInt(match[1], 10);
+      if (this.currentPage !== newPage) {
+        this.currentPage = newPage;
+      }
+    }
+  };
+  
+  onBeforeEnter(location) {
+    const { pageNumber } = location.params;
+    this.currentPage = pageNumber ? parseInt(pageNumber, 10) : 1; 
   }
 
   navigate(event) {

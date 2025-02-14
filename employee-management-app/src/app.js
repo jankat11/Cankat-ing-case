@@ -27,7 +27,7 @@ class EmployeeManagementApp extends LitElement {
       <div class="navbar">
       <img src="../assests/images/ING_logo.jpg" width=100> 
         <nav>
-          <a href="/" @click="${this.navigate}">Employees</a>
+          <a href="/employees/page/1" @click="${this.navigate}">Employees</a>
           <a href="/add" @click="${this.navigate}">Add Employee</a>
         </nav>
       </div>
@@ -38,7 +38,6 @@ class EmployeeManagementApp extends LitElement {
   navigate(event) {
     event.preventDefault();
     const href = event.target.getAttribute("href");
-
     if (href && href !== window.location.pathname) {
       router.render(href).catch((err) => console.error("Routing error:", err));
       window.history.pushState({}, "", href);
