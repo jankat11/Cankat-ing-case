@@ -68,25 +68,6 @@ class EmployeeList extends LitElement {
       max-width: 600px;
       margin: 0 auto;
     }
-    nav {
-      background-color: #333;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .nav-title {
-      font-size: 1.5rem;
-    }
-    .nav-button {
-      background-color: orange;
-      border: none;
-      padding: 0.5rem 1rem;
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-    }
     .employee-list {
       list-style: none;
       padding: 0;
@@ -107,83 +88,9 @@ class EmployeeList extends LitElement {
       font-size: 0.9rem;
       cursor: pointer;
     }
-    /* Modal stil ayarları */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal {
-      background: white;
-      padding: 1rem;
-      border-radius: 5px;
-      width: 300px;
-    }
-    .modal h2 {
-      margin-top: 0;
-    }
-    .modal form {
-      display: flex;
-      flex-direction: column;
-    }
-    .modal label {
-      margin: 0.5rem 0 0.2rem;
-    }
-    .modal input {
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
-    .modal-buttons {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 1rem;
-    }
-    .modal-buttons button {
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
   `;
 
-  // Yeni çalışan ekleme modunu açar
-  openModal() {
-    this.showModal = true;
-    this.firstName = '';
-    this.lastName = '';
-    this.editingIndex = -1;
-  }
 
-  // Var olan çalışanı düzenleme modunu açar
-  openEditModal(index) {
-    const employee = this.employees[index];
-    this.firstName = employee.firstName;
-    this.lastName = employee.lastName;
-    this.editingIndex = index;
-    this.showModal = true;
-    
-  }
-
-  closeModal() {
-    this.showModal = false;
-    this.firstName = '';
-    this.lastName = '';
-    this.editingIndex = -1;
-  }
-
-  handleFirstNameChange(e) {
-    this.firstName = e.target.value;
-  }
-
-  handleLastNameChange(e) {
-    this.lastName = e.target.value;
-  }
 
   navigate(event) {
     event.preventDefault();
@@ -192,25 +99,6 @@ class EmployeeList extends LitElement {
     window.history.pushState({}, '', href);
   }
 
-  saveEmployee(e) {
-    e.preventDefault();
-    const fName = this.firstName.trim();
-    const lName = this.lastName.trim();
-
-    if (fName && lName) {
-      if (this.editingIndex > -1) {
-        // Düzenleme yapılıyorsa ilgili çalışan güncelleniyor
-        this.employees = this.employees.map((emp, idx) =>
-          idx === this.editingIndex ? { firstName: fName, lastName: lName } : emp
-        );
-        localStorage.setItem('employees', JSON.stringify(this.employees));
-      } else {
-        // Yeni çalışan ekleniyor
-        this.employees = [...this.employees, { firstName: fName, lastName: lName }];
-      }
-      this.closeModal();
-    }
-  }
 
   deleteEmployee(index) {
     this.employees = this.employees.filter((_, idx) => idx !== index);
@@ -219,11 +107,6 @@ class EmployeeList extends LitElement {
 
   render() {
     return html`
-      <!-- Nav Bar -->
-      <nav>
-        <div class="nav-title">Employee List</div>
-        <button class="nav-button" @click=${this.openModal}>Add New</button>
-      </nav>
 
       <!-- Çalışan Listesi -->
       <ul class="employee-list">
@@ -240,38 +123,7 @@ class EmployeeList extends LitElement {
         )}
       </ul>
 
-      <!-- Modal Popup -->
-      ${this.showModal
-        ? html`
-            <div class="modal-overlay">
-              <div class="modal">
-                <h2>
-                  ${this.editingIndex > -1 ? 'Edit Employee' : 'Add Employee'}
-                </h2>
-                <form @submit=${this.saveEmployee}>
-                  <label for="firstName">Ad:</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    .value=${this.firstName}
-                    @input=${this.handleFirstNameChange}
-                  />
-                  <label for="lastName">Soyad:</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    .value=${this.lastName}
-                    @input=${this.handleLastNameChange}
-                  />
-                  <div class="modal-buttons">
-                    <button type="button" @click=${this.closeModal}>Cancel</button>
-                    <button type="submit">OK</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          `
-        : ''}
+
     `;
   }
 }
