@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import router from "./router.js";
-import { renderEditIcon, renderDeleteIcon } from './icons.js';
+import { renderEditIcon, renderDeleteIcon } from "./icons.js";
+import "./pagination.js"; // Pagination bileşenini içe aktarıyoruz
 
 class EmployeeList extends LitElement {
   static properties = {
@@ -8,6 +9,7 @@ class EmployeeList extends LitElement {
     showModal: { type: Boolean },
     firstName: { type: String },
     lastName: { type: String },
+    currentPage: { type: Number },
   };
 
   constructor() {
@@ -16,6 +18,7 @@ class EmployeeList extends LitElement {
     this.showModal = false;
     this.firstName = "";
     this.lastName = "";
+    this.currentPage = 1;
   }
 
   static styles = css`
@@ -37,21 +40,34 @@ class EmployeeList extends LitElement {
       padding: 0.5rem 1rem;
       margin-bottom: 0.5rem;
       border-radius: 4px;
+      background-color: #f9f9f9;
     }
-
     .employee-actions button {
       all: unset;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      margin-left: 0.5rem;
     }
     .edit-icon {
       text-decoration: none;
       color: inherit;
-      padding-top: 6px
+      padding-top: 6px;
     }
   `;
+
+  // Toplam sayfa sayısını hesapla (her sayfada 5 eleman olacak)
+  get totalPages() {
+    return Math.ceil(this.employees.length / 5);
+  }
+
+  // Geçerli sayfaya ait elemanları slice'la
+  get paginatedEmployees() {
+    const start = (this.currentPage - 1) * 5;
+    const end = start + 5;
+    return this.employees.slice(start, end);
+  }
 
   navigate(event) {
     event.preventDefault();
@@ -60,16 +76,25 @@ class EmployeeList extends LitElement {
     window.history.pushState({}, "", href);
   }
 
+  // Silme işlemi: Gerçek dizin hesabı yapılır
   deleteEmployee(index) {
-    this.employees = this.employees.filter((_, idx) => idx !== index);
+    const realIndex = (this.currentPage - 1) * 5 + index;
+    this.employees = this.employees.filter((_, idx) => idx !== realIndex);
     localStorage.setItem("employees", JSON.stringify(this.employees));
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
   }
 
+  // Pagination bileşeninden gelecek sayfa değişim olayını dinler
+  handlePageChange(e) {
+    this.currentPage = e.detail.page;
+  }
 
   render() {
     return html`
       <ul class="employee-list">
-        ${this.employees.map(
+        ${this.paginatedEmployees.map(
           (employee, index) => html`
             <li class="employee-item">
               <span>${employee.firstName} ${employee.lastName}</span>
@@ -89,6 +114,12 @@ class EmployeeList extends LitElement {
           `
         )}
       </ul>
+      <!-- Pagination bileşenini kullanıyoruz -->
+      <pagination-component
+        .currentPage=${this.currentPage}
+        .totalPages=${this.totalPages}
+        @page-change=${this.handlePageChange}
+      ></pagination-component>
     `;
   }
 }
