@@ -1,13 +1,14 @@
 import { LitElement, html, css } from 'lit';
 import router from './router.js'; 
 
+
 class EmployeeManagementApp extends LitElement {
   static styles = css`
     nav {
       display: flex;
       justify-content: space-around;
       padding: 1rem;
-      background: #6200ea;
+      background:orange;
       color: white;
     }
     a {
@@ -17,11 +18,12 @@ class EmployeeManagementApp extends LitElement {
     }
   `;
 
+
   render() {
     return html`
       <nav>
         <a href="/" @click="${this.navigate}">Home</a>
-        <a href="/employees" @click="${this.navigate}">Employees</a>
+      
         <a href="/add" @click="${this.navigate}">Add Employee</a>
       </nav>
       <main id="outlet"></main>
