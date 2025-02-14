@@ -1,6 +1,7 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
+import { brandColor } from "../constants.js";
 
 class EmployeeForm extends LitElement {
   static properties = {
@@ -20,7 +21,12 @@ class EmployeeForm extends LitElement {
   }
 
   static styles = css`
-    /* Modal stil ayarları */
+    :host {
+      display: block;
+      font-family: Poppins;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -48,7 +54,7 @@ class EmployeeForm extends LitElement {
     .modal label {
       margin: 0.5rem 0 0.2rem;
     }
-    .modal input {
+    input {
       padding: 0.5rem;
       font-size: 1rem;
     }
@@ -63,28 +69,97 @@ class EmployeeForm extends LitElement {
       font-size: 1rem;
       cursor: pointer;
     }
+    .submit {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      color: white;
+      background-color: ${unsafeCSS(brandColor)};
+      border: none;
+    }
+    .form-area {
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      gap: 1rem;
+      margin: auto;
+    }
+
+    .edit-title {
+      color: ${unsafeCSS(brandColor)};
+      font-size: 20px;
+      font-weight: 500;
+
+      text-align: left;
+    }
+    @media (min-width: 600px) {
+      .edit-title {
+        color: ${unsafeCSS(brandColor)};
+        font-size: 20px;
+        font-weight: 500;
+
+        text-align: center;
+      }
+    }
   `;
 
   render() {
     return html`
-      <h2>${this.isEdit ? "Edit" : "Add"} Employee</h2>
-      <form @submit="${this.saveEmployee}">
-        <input
-          type="text"
-          .value="${this.employee.firstName}"
-          @input="${(e) => (this.employee.firstName = e.target.value)}"
-          placeholder="First Name"
-          required
-        />
-        <input
-          type="text"
-          .value="${this.employee.lastName}"
-          @input="${(e) => (this.employee.lastName = e.target.value)}"
-          placeholder="Last Name"
-          required
-        />
-        <button type="submit">Save</button>
-      </form>
+      <div class="form-container">
+        <h2 class="edit-title">${this.isEdit ? "Edit" : "Add"} Employee</h2>
+        <form class="form-area" @submit="${this.saveEmployee}">
+          <input
+            type="text"
+            .value="${this.employee.firstName || ""}"
+            @input="${(e) => (this.employee.firstName = e.target.value)}"
+            placeholder="First Name"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.lastName || ""}"
+            @input="${(e) => (this.employee.lastName = e.target.value)}"
+            placeholder="Last Name"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.dateOfBirth || ""}"
+            @input="${(e) => (this.employee.dateOfBirth = e.target.value)}"
+            placeholder="Date of Birth"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.phone || ""}"
+            @input="${(e) => (this.employee.phone = e.target.value)}"
+            placeholder="Phone"
+            required
+          />
+          <input
+            type="mail"
+            .value="${this.employee.email || ""}"
+            @input="${(e) => (this.employee.email = e.target.value)}"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.department || ""}"
+            @input="${(e) => (this.employee.department = e.target.value)}"
+            placeholder="Department"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.position || ""}"
+            @input="${(e) => (this.employee.position = e.target.value)}"
+            placeholder="Position"
+            required
+          />
+          <button class="submit" type="submit">Save</button>
+        </form>
+      </div>
 
       ${this.showModal
         ? html`

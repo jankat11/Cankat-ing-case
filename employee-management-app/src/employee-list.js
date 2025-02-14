@@ -31,7 +31,7 @@ class EmployeeList extends LitElement {
     .employee-list {
       list-style: none;
       padding: 0;
-      min-width: 800px; 
+      min-width: 800px;
     }
 
     .employee-item {
@@ -40,7 +40,7 @@ class EmployeeList extends LitElement {
       padding: 0.5rem 0rem;
       margin-bottom: 0.5rem;
       border-radius: 4px;
-      min-width: 1280px; 
+      min-width: 1280px;
       position: relative;
     }
 
@@ -109,6 +109,9 @@ class EmployeeList extends LitElement {
       font-weight: 500;
       padding-bottom: 16px;
     }
+    .empty-list {
+      color: ${unsafeCSS(brandColor)};
+    }
   `;
 
   constructor() {
@@ -173,7 +176,6 @@ class EmployeeList extends LitElement {
     window.history.pushState({}, "", href);
   }
 
-  // Silme işlemi: Gerçek dizin hesabı yapılır
   deleteEmployee(index) {
     const realIndex = (this.currentPage - 1) * EMPLOYEES_PER_PAGE + index;
     this.employees = this.employees.filter((_, idx) => idx !== realIndex);
@@ -183,7 +185,6 @@ class EmployeeList extends LitElement {
     }
   }
 
-  // Pagination bileşeninden gelecek sayfa değişim olayını dinler
   handlePageChange(e) {
     this.currentPage = e.detail.page;
   }
@@ -191,62 +192,70 @@ class EmployeeList extends LitElement {
   render() {
     return html`
       <h1 class="employee-list-title">Employee List</h1>
-      <div class="employee-list-wrapper">
-        <ul class="employee-list">
-          <li class="employee-item employee-header">
-            <div class="employee-name employee-header-name">
-              <span> ${"first name"}</span> <span>${"last name"} </span>
-            </div>
-            <div class="employee-data employee-header-data">
-              <div>${"Date of Employement"}</div>
-              <div>${"Date of Birth"}</div>
-              <div>${"Phone"}</div>
-              <div>${"Email"}</div>
-              <div>${"Department"}</div>
-              <div>${"Position"}</div>
-            </div>
-            <div class="employee-actions">
-              <div>actions</div>
-            </div>
-          </li>
-          ${this.paginatedEmployees.map(
-            (employee, index) => html`
-              <li class="employee-item">
-                <div class="employee-name">
-                  <span>${"cankat"}</span> <span>${"güven"}</span>
-                </div>
+      ${this.employees.length > 0
+        ? html`
+            <div class="employee-list-wrapper">
+              <ul class="employee-list">
+                <li class="employee-item employee-header">
+                  <div class="employee-name employee-header-name">
+                    <span> ${"first name"}</span> <span>${"last name"} </span>
+                  </div>
+                  <div class="employee-data employee-header-data">
+                    <div>${"Date of Employement"}</div>
+                    <div>${"Date of Birth"}</div>
+                    <div>${"Phone"}</div>
+                    <div>${"Email"}</div>
+                    <div>${"Department"}</div>
+                    <div>${"Position"}</div>
+                  </div>
+                  <div class="employee-actions">
+                    <div>actions</div>
+                  </div>
+                </li>
+                ${this.paginatedEmployees.map(
+                  (employee, index) => html`
+                    <li class="employee-item">
+                      <div class="employee-name">
+                        <span>${employee.firstName}</span>
+                        <span>${employee.lastName}</span>
+                      </div>
 
-                <div class="employee-data">
-                  <div>${"23/03/1987"}</div>
-                  <div>${"23/03/1987"}</div>
-                  <div>${"+905055524040"}</div>
-                  <div>${"cankatguven@gmail.com"}</div>
-                  <div>${"Analitics"}</div>
-                  <div>${"Junior"}</div>
-                </div>
-                <div class="employee-actions">
-                  <a
-                    class="edit-icon"
-                    href="/edit/${employee.id}"
-                    @click="${this.navigate}"
-                  >
-                    ${renderEditIcon()}
-                  </a>
-                  <button @click=${() => this.deleteEmployee(index)}>
-                    ${renderDeleteIcon()}
-                  </button>
-                </div>
-              </li>
-            `
-          )}
-        </ul>
-      </div>
-
-      <employees-pagination
-        .currentPage=${this.currentPage}
-        .totalPages=${this.totalPages}
-        @page-change=${this.handlePageChange}
-      ></employees-pagination>
+                      <div class="employee-data">
+                        <div>${"23/03/1987"}</div>
+                        <div>${employee.dateOfBirth}</div>
+                        <div>${employee.phone}</div>
+                        <div>${employee.email}</div>
+                        <div>${employee.department}</div>
+                        <div>${employee.position}</div>
+                      </div>
+                      <div class="employee-actions">
+                        <a
+                          class="edit-icon"
+                          href="/edit/${employee.id}"
+                          @click="${this.navigate}"
+                        >
+                          ${renderEditIcon()}
+                        </a>
+                        <button @click=${() => this.deleteEmployee(index)}>
+                          ${renderDeleteIcon()}
+                        </button>
+                      </div>
+                    </li>
+                  `
+                )}
+              </ul>
+            </div>
+          `
+        : html`<div class="empty-list">no employees yet!</div>`}
+      ${this.employees.length > EMPLOYEES_PER_PAGE
+        ? html`
+            <employees-pagination
+              .currentPage=${this.currentPage}
+              .totalPages=${this.totalPages}
+              @page-change=${this.handlePageChange}
+            ></employees-pagination>
+          `
+        : ""}
     `;
   }
 }
