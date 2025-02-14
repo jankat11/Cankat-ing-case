@@ -1,7 +1,8 @@
 import { LitElement, html, css } from "lit";
 import router from "./router.js";
 import { renderEditIcon, renderDeleteIcon } from "./icons.js";
-import "./pagination.js"; // Pagination bileşenini içe aktarıyoruz
+import "./pagination.js"; 
+import { EMPLOYEES_PER_PAGE } from "../constants.js";
 
 class EmployeeList extends LitElement {
   static properties = {
@@ -59,13 +60,13 @@ class EmployeeList extends LitElement {
 
   // Toplam sayfa sayısını hesapla (her sayfada 5 eleman olacak)
   get totalPages() {
-    return Math.ceil(this.employees.length / 5);
+    return Math.ceil(this.employees.length / EMPLOYEES_PER_PAGE);
   }
 
   // Geçerli sayfaya ait elemanları slice'la
   get paginatedEmployees() {
-    const start = (this.currentPage - 1) * 5;
-    const end = start + 5;
+    const start = (this.currentPage - 1) * EMPLOYEES_PER_PAGE;
+    const end = start + EMPLOYEES_PER_PAGE;
     return this.employees.slice(start, end);
   }
 
@@ -78,7 +79,7 @@ class EmployeeList extends LitElement {
 
   // Silme işlemi: Gerçek dizin hesabı yapılır
   deleteEmployee(index) {
-    const realIndex = (this.currentPage - 1) * 5 + index;
+    const realIndex = (this.currentPage - 1) * EMPLOYEES_PER_PAGE + index;
     this.employees = this.employees.filter((_, idx) => idx !== realIndex);
     localStorage.setItem("employees", JSON.stringify(this.employees));
     if (this.currentPage > this.totalPages) {
@@ -114,12 +115,12 @@ class EmployeeList extends LitElement {
           `
         )}
       </ul>
-      <!-- Pagination bileşenini kullanıyoruz -->
-      <pagination-component
+
+      <employees-pagination
         .currentPage=${this.currentPage}
         .totalPages=${this.totalPages}
         @page-change=${this.handlePageChange}
-      ></pagination-component>
+      ></employees-pagination>
     `;
   }
 }

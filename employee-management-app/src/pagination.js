@@ -67,5 +67,6 @@ class PaginationComponent extends LitElement {
   }
 }
 
-customElements.define('pagination-component', PaginationComponent);
+customElements.define('employees-pagination', PaginationComponent);
+
 export default PaginationComponent;
