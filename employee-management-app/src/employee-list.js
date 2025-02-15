@@ -257,7 +257,7 @@ class EmployeeList extends LitElement {
     this.showModal = false;
     this.currentPage = 1;
     this.searchTerm = "";
-    this.selectedView = "list";
+    this.selectedView = localStorage.getItem("selectedView") || "list";
     this.lang =
       localStorage.getItem("language") || document.documentElement.lang || "en";
     this.employeeIndex = null;
@@ -387,6 +387,7 @@ class EmployeeList extends LitElement {
   // Görünüm modu değiştirir ("list" veya "table")
   changeView(mode) {
     this.selectedView = mode;
+    localStorage.setItem("selectedView", mode);
   }
 
   openModal(index) {
