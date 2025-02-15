@@ -248,6 +248,19 @@ class EmployeeList extends LitElement {
       position: relative;
       bottom: 5px;
     }
+    .delete-icon-table {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .cancel {
+      background-color: #fff;
+      border: solid 1px #BDBDBD;
+      outline: none;
+      shadow:none;
+      shadow-inline :none;
+      color:  #444;
+    }
   `;
 
   constructor() {
@@ -529,7 +542,10 @@ class EmployeeList extends LitElement {
                                 >
                                   ${renderEditIcon()}
                                 </a>
-                                <button @click=${() => this.openModal(index)}>
+                                <button
+                                  class="delete-icon-table"
+                                  @click=${() => this.openModal(index)}
+                                >
                                   ${renderDeleteIcon()}
                                 </button>
                               </td>

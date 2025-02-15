@@ -117,6 +117,14 @@ class EmployeeForm extends LitElement {
 
       text-align: left;
     }
+    .cancel {
+      background-color: #fff;
+      border: solid 1px #bdbdbd;
+      outline: none;
+      shadow: none;
+      shadow-inline: none;
+      color: #666;
+    }
     @media (min-width: 600px) {
       .edit-title {
         color: ${unsafeCSS(brandColor)};
@@ -316,7 +324,11 @@ class EmployeeForm extends LitElement {
                 <h3>${translate("formSubmitModalTitle", this.lang)}</h3>
                 <form @submit=${this.editEmployee}>
                   <div class="modal-buttons">
-                    <button type="button" @click=${this.closeModal}>
+                    <button
+                      class="cancel"
+                      type="button"
+                      @click=${this.closeModal}
+                    >
                       ${translate("cancel", this.lang)}
                     </button>
                     <button class="proceed" type="submit">
