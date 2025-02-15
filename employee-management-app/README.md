@@ -31,7 +31,7 @@ Open WC testing was used, with 27 tests written, achieving a 98% code coverage r
 
 ## Important Note
 
-On Windows (PowerShell), due to restrictions with single and double quotes, the following syntax is used in the project's `package.json`: ` "test": "web-test-runner --node-resolve --files \"test/**/*.test.js\" --coverage" ` If you experience issues with testing on terminals from other operating systems, you can change it to: 
+On Windows (PowerShell), due to restrictions with single and double quotes, the following syntax is used in the project's scripts `package.json`: ` "test": "web-test-runner --node-resolve --files \"test/**/*.test.js\" --coverage" ` If you experience issues with testing on terminals from other operating systems, you can change it to: 
 ` "test": "web-test-runner --node-resolve --files 'test/**/*.test.js' --coverage" `
 
 ---
