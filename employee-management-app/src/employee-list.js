@@ -177,7 +177,7 @@ class EmployeeList extends LitElement {
       font-weight: bold;
     }
     .employee-table td {
-      padding: 1.3rem;
+      padding: 1.2rem;
     }
     .search-input::placeholder {
       color: #aaa;
@@ -275,7 +275,7 @@ class EmployeeList extends LitElement {
 
     th:nth-child(2) {
       position: sticky;
-      left: 100px;
+      left: 98px;
       z-index: 3;
     }
     td:first-child {
@@ -287,7 +287,7 @@ class EmployeeList extends LitElement {
 
     td:nth-child(2) {
       position: sticky;
-      left: 100px;
+      left: 98px;
       z-index: 3;
       background-color: #fff;
     }
