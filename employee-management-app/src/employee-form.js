@@ -203,7 +203,11 @@ class EmployeeForm extends LitElement {
   render() {
     return html`
       <div class="form-container">
-        <h2 class="edit-title">${this.isEdit ? "Edit" : "Add"} Employee</h2>
+        <h2 class="edit-title">
+          ${this.isEdit
+            ? translate("editEmployeeTitle", this.lang)
+            : translate("addEmployeeTitle", this.lang)}
+        </h2>
         <form class="form-area" @submit="${this.saveEmployee}">
           <input
             type="text"
@@ -262,7 +266,9 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("position", this.lang)}
             required
           />
-          <button class="submit" type="submit">${translate("save", this.lang)}</button>
+          <button class="submit" type="submit">
+            ${translate("save", this.lang)}
+          </button>
         </form>
       </div>
 
@@ -285,8 +291,6 @@ class EmployeeForm extends LitElement {
         : ""}
     `;
   }
-
-
 }
 
 customElements.define("employee-form", EmployeeForm);

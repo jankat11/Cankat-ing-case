@@ -18,6 +18,8 @@ const translations = {
     confirmDelete: "Are you sure?",
     deleteInfoLeft: "Selected Employee record of",
     deleteInfoRight: "will be deleted.",
+    addEmployeeTitle: "Add Employee",
+    editEmployeeTitle: "Edit Employee"
   },
   tr: {
     employees: "Çalışanlar",
@@ -38,6 +40,8 @@ const translations = {
     confirmDelete: "Emin misiniz?",
     deleteInfoLeft: "Seçilen",
     deleteInfoRight: "çalışan kaydı silinecek.",
+    addEmployeeTitle: "Çalışan Ekle",
+    editEmployeeTitle: "Çalışanı Düzenle"
   },
 };
 
