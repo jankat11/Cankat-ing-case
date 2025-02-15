@@ -23,6 +23,8 @@ const translations = {
     formSubmitModalTitle: "Submit changes?",
     proceed: "Proceed",
     cancel: "Cancel",
+    selectDepartment: "Select Department",
+    selectPosition: "Select Position"
   },
   tr: {
     employees: "Çalışanlar",
@@ -48,6 +50,8 @@ const translations = {
     formSubmitModalTitle: "Değişiklikleri onaylıyor musunuz?",
     proceed: "Onayla",
     cancel: "İptal et",
+    selectDepartment: "Departmanı seçin",
+    selectPosition: "Pozisyonu seçin"
   },
 };
 

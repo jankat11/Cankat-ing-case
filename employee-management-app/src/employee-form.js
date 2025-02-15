@@ -58,7 +58,7 @@ class EmployeeForm extends LitElement {
     .modal label {
       margin: 0.5rem 0 0.2rem;
     }
-    input {
+    input, select {
       padding: 0.5rem;
       font-size: 1rem;
       border: solid 1px #bdbdbd;
@@ -98,7 +98,7 @@ class EmployeeForm extends LitElement {
       padding: 8px 1rem;
     }
     .submit {
-      padding: 0.5rem 1rem;
+      padding: 0.7rem 1rem;
       font-size: 1rem;
       cursor: pointer;
       color: white;
@@ -132,7 +132,7 @@ class EmployeeForm extends LitElement {
       color: #666;
     }
     input[type="date"]::-webkit-datetime-edit {
-      color: #666; 
+      color: #666;
     }
 
     @media (min-width: 600px) {
@@ -302,22 +302,31 @@ class EmployeeForm extends LitElement {
           />
 
           <label> ${translate("department", this.lang)} </label>
-          <input
-            type="text"
+          <select
             .value="${this.employee.department || ""}"
-            @input="${(e) => (this.employee.department = e.target.value)}"
-            placeholder=${translate("department", this.lang)}
+            @change="${(e) => (this.employee.department = e.target.value)}"
             required
-          />
+          >
+            <option value="" disabled selected>
+              ${translate("selectDepartment", this.lang)}
+            </option>
+            <option value="Analytics">Analytics</option>
+            <option value="Tech">Tech</option>
+          </select>
 
           <label> ${translate("position", this.lang)} </label>
-          <input
-            type="text"
+          <select
             .value="${this.employee.position || ""}"
-            @input="${(e) => (this.employee.position = e.target.value)}"
-            placeholder=${translate("position", this.lang)}
+            @change="${(e) => (this.employee.position = e.target.value)}"
             required
-          />
+          >
+            <option value="" disabled selected>
+              ${translate("selectPosition", this.lang)}
+            </option>
+            <option value="Junior">Junior</option>
+            <option value="Medior">Medior</option>
+            <option value="Senior">Senior</option>
+          </select>
 
           <button class="submit" type="submit">
             ${translate("save", this.lang)}
