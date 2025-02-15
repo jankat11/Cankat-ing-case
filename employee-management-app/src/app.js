@@ -1,6 +1,6 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
-import { brandColor } from "./constants.js";
+import { brandColor, brandColorLight } from "./constants.js";
 import { renderPeopleIcon, renderPlusIcon } from "./icons.js";
 import { translate } from "./localization.js";
 
@@ -49,6 +49,10 @@ class EmployeeManagementApp extends LitElement {
     select {
       font-size: 14px;
       padding: 0.2rem;
+      border-radius: 4px;
+      border-color: ${unsafeCSS(brandColorLight)};
+      color: ${unsafeCSS(brandColor)};
+      outline: none
     }
     @media (min-width: 1280px) {
       .navbar-content {

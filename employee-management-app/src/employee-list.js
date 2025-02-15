@@ -9,7 +9,7 @@ import {
 } from "./icons.js";
 import "./pagination.js";
 import { EMPLOYEES_PER_PAGE } from "./constants.js";
-import { brandColor, brandColorLight } from "./constants.js";
+import { brandColor, brandColorLight, lightGrey } from "./constants.js";
 import { initialEmployees } from "../initialData.js";
 import { translate } from "./localization.js";
 
@@ -96,9 +96,11 @@ class EmployeeList extends LitElement {
       align-items: center;
       padding: 0.5rem 0;
       margin-bottom: 0.5rem;
-      border-radius: 4px;
+  
       min-width: 1280px;
       position: relative;
+      border-bottom: solid 1px;
+      border-color: ${unsafeCSS(lightGrey)};
     }
     .employee-name {
       position: sticky;
