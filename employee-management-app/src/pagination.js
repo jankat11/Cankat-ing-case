@@ -24,6 +24,7 @@ class PaginationComponent extends LitElement {
       border-radius: 50%;
       background: #f9f9f9;
       cursor: pointer;
+      color: #444;
     }
     button.active {
       background: ${unsafeCSS(brandColor)};
@@ -41,7 +42,7 @@ class PaginationComponent extends LitElement {
       cursor: default;
       font-size: 1rem;
       font-weight: bold;
-      color: #444;
+      
     }
     .pagination-arrow svg {
       border: none;
