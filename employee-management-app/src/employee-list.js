@@ -569,13 +569,15 @@ class EmployeeList extends LitElement {
                 </p>
                 <form @submit=${this.deleteEmployee}>
                   <div class="modal-buttons">
-                    <button class="proceed" type="submit">Proceed</button>
+                    <button class="proceed" type="submit">
+                      ${translate("proceed", this.lang)}
+                    </button>
                     <button
                       class="cancel"
                       type="button"
                       @click=${this.closeModal}
                     >
-                      Cancel
+                      ${translate("cancel", this.lang)}
                     </button>
                   </div>
                 </form>

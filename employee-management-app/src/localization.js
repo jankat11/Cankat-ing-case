@@ -19,7 +19,10 @@ const translations = {
     deleteInfoLeft: "Selected Employee record of",
     deleteInfoRight: "will be deleted.",
     addEmployeeTitle: "Add Employee",
-    editEmployeeTitle: "Edit Employee"
+    editEmployeeTitle: "Edit Employee",
+    formSubmitModalTitle: "Submit changes?",
+    proceed: "Proceed",
+    cancel: "Cancel",
   },
   tr: {
     employees: "Çalışanlar",
@@ -41,7 +44,10 @@ const translations = {
     deleteInfoLeft: "Seçilen",
     deleteInfoRight: "çalışan kaydı silinecek.",
     addEmployeeTitle: "Çalışan Ekle",
-    editEmployeeTitle: "Çalışanı Düzenle"
+    editEmployeeTitle: "Çalışanı Düzenle",
+    formSubmitModalTitle: "Değişiklikleri onaylıyor musunuz?",
+    proceed: "Onayla",
+    cancel: "İptal et",
   },
 };
 

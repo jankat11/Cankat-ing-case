@@ -67,11 +67,31 @@ class EmployeeForm extends LitElement {
       justify-content: flex-end;
       margin-top: 1rem;
     }
+    .modal h3 {
+      margin-top: 0;
+      font-weight: 500;
+      color: ${unsafeCSS(brandColor)};
+    }
     .modal-buttons button {
       margin-left: 0.5rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
+      min-width: 100px;
+    }
+    .modal-buttons button {
+      padding: 6px 1rem;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    .modal-buttons .proceed {
+      border: none;
+      background-color: ${unsafeCSS(brandColor)};
+      shadow: none !important;
+      outline: none !important;
+      color: #fff;
+      padding: 8px 1rem;
     }
     .submit {
       padding: 0.5rem 1rem;
@@ -87,6 +107,7 @@ class EmployeeForm extends LitElement {
       max-width: 600px;
       gap: 1rem;
       margin: auto;
+      margin-bottom: 100px;
     }
 
     .edit-title {
@@ -292,13 +313,15 @@ class EmployeeForm extends LitElement {
         ? html`
             <div class="modal-overlay">
               <div class="modal">
-                <h2>submit changes?</h2>
+                <h3>${translate("formSubmitModalTitle", this.lang)}</h3>
                 <form @submit=${this.editEmployee}>
                   <div class="modal-buttons">
                     <button type="button" @click=${this.closeModal}>
-                      Cancel
+                      ${translate("cancel", this.lang)}
                     </button>
-                    <button type="submit">OK</button>
+                    <button class="proceed" type="submit">
+                      ${translate("proceed", this.lang)}
+                    </button>
                   </div>
                 </form>
               </div>
