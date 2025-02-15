@@ -90,14 +90,13 @@ class EmployeeList extends LitElement {
       list-style: none;
       padding: 0;
       min-width: 800px;
-      position:relative;
-      bottom: 14px
+      position: relative;
+      bottom: 14px;
     }
     .employee-item {
       display: flex;
       align-items: center;
       padding: 0.5rem 0;
-     
 
       min-width: 1280px;
       position: relative;
@@ -125,7 +124,7 @@ class EmployeeList extends LitElement {
       font-size: 14px;
     }
     .employee-actions {
-      position: sticky;
+     
       right: 0;
       background: #fff;
       padding: 0.5rem;
@@ -179,7 +178,7 @@ class EmployeeList extends LitElement {
       font-weight: bold;
     }
     .employee-table td {
-      padding: 1.3rem
+      padding: 1.3rem;
     }
     .search-input::placeholder {
       color: #aaa;
@@ -260,11 +259,38 @@ class EmployeeList extends LitElement {
     }
     .cancel {
       background-color: #fff;
-      border: solid 1px #BDBDBD;
+      border: solid 1px #bdbdbd;
       outline: none;
-      shadow:none;
-      shadow-inline :none;
-      color:  #444;
+      shadow: none;
+      shadow-inline: none;
+      color: #444;
+    }
+    .sticky {
+      position: sticky;
+    }
+    th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 3;
+    }
+
+    th:nth-child(2) {
+      position: sticky;
+      left: 90px;
+      z-index: 3;
+    }
+    td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      background-color: #fff;
+    }
+
+    td:nth-child(2) {
+      position: sticky;
+      left: 90px;
+      z-index: 3;
+      background-color: #fff;
     }
   `;
 

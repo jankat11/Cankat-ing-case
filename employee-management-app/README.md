@@ -12,7 +12,7 @@ This case project was provided to me as a sample by ING Bank and developed using
   The primary color is chosen to align with ING Bank's brand, and additional gray and text shades have been calculated to ensure a harmonious look.
 
 - **Responsive Design:**  
-  On mobile devices, the two columns containing the first and last names remain fixed with horizontal scrolling enabled. Similarly, the action buttons on the far right are fixed. Additionally, text and font sizes are slightly reduced to improve mobile readability.
+  On mobile devices, the two columns containing the first and last names remain fixed with horizontal scrolling enabled. Additionally, text and font sizes are slightly reduced to improve mobile readability.
 
 - **Sizing:**  
   The design follows a system where `1rem = 16px`, and a scale based on multiples of 4 is used throughout. White spacing and overall dimensions have been carefully adjusted to adhere to this system.
