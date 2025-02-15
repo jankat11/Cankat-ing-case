@@ -124,7 +124,6 @@ class EmployeeList extends LitElement {
       font-size: 14px;
     }
     .employee-actions {
-     
       right: 0;
       background: #fff;
       padding: 0.5rem;
@@ -276,7 +275,7 @@ class EmployeeList extends LitElement {
 
     th:nth-child(2) {
       position: sticky;
-      left: 90px;
+      left: 100px;
       z-index: 3;
     }
     td:first-child {
@@ -288,7 +287,7 @@ class EmployeeList extends LitElement {
 
     td:nth-child(2) {
       position: sticky;
-      left: 90px;
+      left: 100px;
       z-index: 3;
       background-color: #fff;
     }
