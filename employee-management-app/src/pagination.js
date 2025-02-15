@@ -1,7 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import { brandColor } from "../constants";
 import { renderLeftArrow, renderRightArrow } from "./icons";
-import { getPagesList } from "../utils"
+import { getPagesList } from "./utils"
 
 
 class PaginationComponent extends LitElement {
