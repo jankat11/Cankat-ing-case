@@ -16,12 +16,12 @@ class EmployeeList extends LitElement {
   static properties = {
     employees: { type: Array },
     showModal: { type: Boolean },
-    firstName: { type: String },
-    lastName: { type: String },
+    confirmDelete: { type: Boolean },
     currentPage: { type: Number },
     searchTerm: { type: String },
     selectedView: { type: String },
-    lang: { type: String }
+    lang: { type: String },
+    employeeIndex: { type: Number },
   };
 
   static styles = css`
@@ -174,6 +174,46 @@ class EmployeeList extends LitElement {
       color: #fff;
       font-weight: bold;
     }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: white;
+      padding: 1rem;
+      border-radius: 5px;
+      width: 300px;
+    }
+    .modal h2 {
+      margin-top: 0;
+    }
+    .modal form {
+      display: flex;
+      flex-direction: column;
+    }
+    .modal label {
+      margin: 0.5rem 0 0.2rem;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+    .modal-buttons button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
   `;
 
   constructor() {
@@ -181,15 +221,13 @@ class EmployeeList extends LitElement {
     this.employees =
       JSON.parse(localStorage.getItem("employees")) || initialEmployees;
     this.showModal = false;
-    this.firstName = "";
-    this.lastName = "";
+    this.confirmDelete = false;
     this.currentPage = 1;
     this.searchTerm = "";
-    this.selectedView = "list"; // Varsayılan liste görünümü
-
-    // Başlangıç dilini localStorage veya document.documentElement üzerinden alıyoruz
+    this.selectedView = "list";
     this.lang =
       localStorage.getItem("language") || document.documentElement.lang || "en";
+    this.employeeIndex = null;
   }
 
   connectedCallback() {
@@ -280,9 +318,9 @@ class EmployeeList extends LitElement {
     window.history.pushState({}, "", href);
   }
 
-  // Çalışanı siler
-  deleteEmployee(index) {
-    const employeeToDelete = this.paginatedEmployees[index];
+  deleteEmployee(e) {
+    e.preventDefault();
+    const employeeToDelete = this.paginatedEmployees[this.employeeIndex];
     this.employees = this.employees.filter(
       (employee) => employee.id !== employeeToDelete.id
     );
@@ -290,6 +328,8 @@ class EmployeeList extends LitElement {
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
+    this.employeeIndex = null;
+    this.closeModal();
   }
 
   formatDate(dateString) {
@@ -314,6 +354,20 @@ class EmployeeList extends LitElement {
   // Görünüm modu değiştirir ("list" veya "table")
   changeView(mode) {
     this.selectedView = mode;
+  }
+
+  openModal(index) {
+    this.employeeIndex = index;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  confirm(e) {
+    e.preventDefault();
+    this.confirmDelete = true;
   }
 
   render() {
@@ -398,9 +452,7 @@ class EmployeeList extends LitElement {
                               >
                                 ${renderEditIcon()}
                               </a>
-                              <button
-                                @click=${() => this.deleteEmployee(index)}
-                              >
+                              <button @click=${() => this.openModal(index)}>
                                 ${renderDeleteIcon()}
                               </button>
                             </div>
@@ -448,9 +500,7 @@ class EmployeeList extends LitElement {
                                 >
                                   ${renderEditIcon()}
                                 </a>
-                                <button
-                                  @click=${() => this.deleteEmployee(index)}
-                                >
+                                <button @click=${() => this.openModal(index)}>
                                   ${renderDeleteIcon()}
                                 </button>
                               </td>
@@ -470,6 +520,23 @@ class EmployeeList extends LitElement {
               .totalPages=${this.totalPages}
               @page-change=${this.handlePageChange}
             ></employees-pagination>
+          `
+        : ""}
+      ${this.showModal
+        ? html`
+            <div class="modal-overlay">
+              <div class="modal">
+                <h2>delete employee?</h2>
+                <form @submit=${this.deleteEmployee}>
+                  <div class="modal-buttons">
+                    <button type="button" @click=${this.closeModal}>
+                      Cancel
+                    </button>
+                    <button type="submit">OK</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           `
         : ""}
     `;
