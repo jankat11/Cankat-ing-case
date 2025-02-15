@@ -4,6 +4,10 @@
 
 This case project was provided to me as a sample by ING Bank and developed using LiteElement (JavaScript). In accordance with the scenario, a web interface was designed for maintaining and updating employee records. All required functionalities have been flawlessly implemented, including comprehensive testing and the complete design of all JavaScript functions.
 
+## Usage
+
+Ensure that you're in the root directory where `package.json` is located. After installing the necessary libraries using `npm install`, you can start the development server with `npm run dev` and run tests with `npm t`.
+
 ## Design & Implementation Details
 
 ### UI/UX
@@ -36,11 +40,6 @@ On Windows (PowerShell), due to restrictions with single and double quotes, the 
 
 ---
 
-## Usage
-
-Ensure that you're in the root directory where `package.json` is located. After installing the necessary libraries using `npm install`, you can start the development server with `npm run dev` and run tests with `npm t`.
-
----
 
 ## Improvements I Could Have Made If I Had More Time:
 
