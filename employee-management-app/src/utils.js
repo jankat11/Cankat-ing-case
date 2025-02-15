@@ -1,3 +1,13 @@
+/* 
+
+In pagination, the distribution of the page numbers is arranged to appear at the beginning, 
+middle, and end based on the total number of pages. 
+
+'Delta' represents the number of pages displayed to the left and right of the middle page. 
+
+For now, I set it to 1, but I will modify this part if I design a better pagination algorithm.
+
+*/
 
 export function getPagesList(currentPage, totalPages, maxVisiblePages = 5) {
   const pages = [];
@@ -39,3 +49,4 @@ export function getPagesList(currentPage, totalPages, maxVisiblePages = 5) {
 
   return pages;
 }
+
