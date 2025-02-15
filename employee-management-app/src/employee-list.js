@@ -373,6 +373,13 @@ class EmployeeList extends LitElement {
     }
   };
 
+/* The event listener above is intended to be triggered when there is a rotation change, 
+along with the connect and disconnect callbacks. 
+I didn't use libraries like Redux, which are offered as an option in this case, 
+but even this way, the pages stay synchronized. If the project scope were a bit larger, 
+I might have considered using a global state for cleaner code. */
+
+
   onBeforeEnter(location) {
     if (!JSON.parse(localStorage.getItem("employees"))) {
       localStorage.setItem("employees", JSON.stringify(initialEmployees));
