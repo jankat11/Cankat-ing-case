@@ -16,7 +16,6 @@ class EmployeeList extends LitElement {
   static properties = {
     employees: { type: Array },
     showModal: { type: Boolean },
-    confirmDelete: { type: Boolean },
     currentPage: { type: Number },
     searchTerm: { type: String },
     selectedView: { type: String },
@@ -221,7 +220,6 @@ class EmployeeList extends LitElement {
     this.employees =
       JSON.parse(localStorage.getItem("employees")) || initialEmployees;
     this.showModal = false;
-    this.confirmDelete = false;
     this.currentPage = 1;
     this.searchTerm = "";
     this.selectedView = "list";
@@ -365,10 +363,6 @@ class EmployeeList extends LitElement {
     this.showModal = false;
   }
 
-  confirm(e) {
-    e.preventDefault();
-    this.confirmDelete = true;
-  }
 
   render() {
     return html`
