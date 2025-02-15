@@ -21,7 +21,7 @@ export const initialEmployees = [
     department: "analytics",
     position: "junior",
   },
-/*   {
+  {
     firstName: "ayşe",
     lastName: "demir",
     id: 1739562750920,
@@ -592,5 +592,5 @@ export const initialEmployees = [
     email: "riza@gmail.com",
     department: "sales",
     position: "senior",
-  }, */
+  },
 ];
