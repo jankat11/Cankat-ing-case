@@ -40,3 +40,13 @@ On Windows (PowerShell), due to restrictions with single and double quotes, the 
 
 Ensure that you're in the root directory where `package.json` is located. After installing the necessary libraries using `npm install`, you can start the development server with `npm run dev` and run tests with `npm t`.
 
+---
+
+## Improvements I Could Have Made If I Had More Time:
+
+- Making the **phone number field localized** by suggesting the country phone code from location.
+- Using **flags** in the language dropdown.
+- **Suggesting and prefilling the email address field** with something like `name.surname@ing.com`.
+- Working on overall better **UI/UX**.
+- **Selenium tests**
+- Splitting some JavaScript files with dense code blocks into **smaller components**.
