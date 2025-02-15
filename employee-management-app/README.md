@@ -46,7 +46,7 @@ Ensure that you're in the root directory where `package.json` is located. After 
 
 - Making the **phone number field localized** by suggesting the country phone code from location.
 - Using **flags** in the language dropdown.
-- **Suggesting and prefilling the email address field** with something like `name.surname@ing.com`.
+- Adding corner cases, **warnings**, and **blacklists** or **whitelists** for form input fields.
 - Working on overall better **UI/UX**.
 - **Selenium tests**
 - Splitting some JavaScript files with dense code blocks into **smaller components**.
