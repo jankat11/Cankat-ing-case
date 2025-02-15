@@ -1,7 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
-import { EMPLOYEES_PER_PAGE } from "../constants.js";
-import { brandColor } from "../constants.js";
+import { EMPLOYEES_PER_PAGE } from "./constants.js";
+import { brandColor } from "./constants.js";
 import { translate } from "./localization.js";
 
 class EmployeeForm extends LitElement {

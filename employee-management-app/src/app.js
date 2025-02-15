@@ -1,12 +1,12 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
-import { brandColor } from "../constants.js";
+import { brandColor } from "./constants.js";
 import { renderPeopleIcon, renderPlusIcon } from "./icons.js";
 import { translate } from "./localization.js";
 
 class EmployeeManagementApp extends LitElement {
   static properties = {
-    lang: { type: String }
+    lang: { type: String },
   };
 
   static styles = css`
@@ -66,7 +66,8 @@ class EmployeeManagementApp extends LitElement {
 
   constructor() {
     super();
-    this.lang = localStorage.getItem("language") || document.documentElement.lang || "en";
+    this.lang =
+      localStorage.getItem("language") || document.documentElement.lang || "en";
     document.documentElement.lang = this.lang;
   }
 
@@ -100,9 +101,7 @@ class EmployeeManagementApp extends LitElement {
     event.preventDefault();
     const href = event.currentTarget.getAttribute("href");
     if (href && href !== window.location.pathname) {
-      router
-        .render(href)
-        .catch((err) => console.error("Routing error:", err));
+      router.render(href).catch((err) => console.error("Routing error:", err));
       window.history.pushState({}, "", href);
     }
   }

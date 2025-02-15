@@ -1,8 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
-import { brandColor } from "../constants";
+import { brandColor, darkGrey } from "./constants";
 import { renderLeftArrow, renderRightArrow } from "./icons";
-import { getPagesList } from "./utils"
-
+import { getPagesList } from "./utils";
 
 class PaginationComponent extends LitElement {
   static properties = {
@@ -23,7 +22,7 @@ class PaginationComponent extends LitElement {
       padding: 0.5rem 0.8rem;
       border: none;
       border-radius: 50%;
-      background:  #f9f9f9;
+      background: #f9f9f9;
       cursor: pointer;
     }
     button.active {
@@ -42,6 +41,7 @@ class PaginationComponent extends LitElement {
       cursor: default;
       font-size: 1rem;
       font-weight: bold;
+      color: #444;
     }
     .pagination-arrow svg {
       border: none;

@@ -8,8 +8,8 @@ import {
   renderCloseIcon,
 } from "./icons.js";
 import "./pagination.js";
-import { EMPLOYEES_PER_PAGE } from "../constants.js";
-import { brandColor, brandColorLight } from "../constants.js";
+import { EMPLOYEES_PER_PAGE } from "./constants.js";
+import { brandColor, brandColorLight } from "./constants.js";
 import { initialEmployees } from "../initialData.js";
 import { translate } from "./localization.js";
 

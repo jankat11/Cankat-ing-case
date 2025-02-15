@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { brandColor } from "../constants.js";
+import { brandColor } from "./constants.js";
 
 export const renderEditIcon = () => html`
   <svg
