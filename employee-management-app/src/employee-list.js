@@ -50,9 +50,10 @@ class EmployeeList extends LitElement {
     .search-input {
       padding: 0.5rem;
       font-size: 14px;
-      border: 1px solid #eee;
+      border: 1px solid #ccc;
       border-radius: 4px;
       outline: none;
+      color:#444
     }
     .view-toggle {
       display: flex;
