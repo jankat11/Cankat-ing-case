@@ -59,8 +59,13 @@ class EmployeeForm extends LitElement {
       margin: 0.5rem 0 0.2rem;
     }
     input {
+    
       padding: 0.5rem;
       font-size: 1rem;
+      border: solid 1px #aaa;
+      border-radius: 6px;
+      outline: none;
+      shadow:none;
     }
     .modal-buttons {
       display: flex;
@@ -100,6 +105,7 @@ class EmployeeForm extends LitElement {
       color: white;
       background-color: ${unsafeCSS(brandColor)};
       border: none;
+      border-radius: 6px
     }
     .form-area {
       display: flex;
