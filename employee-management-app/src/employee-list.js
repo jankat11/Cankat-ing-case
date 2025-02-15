@@ -8,7 +8,7 @@ import {
   renderCloseIcon,
 } from "./icons.js";
 import "./pagination.js";
-import { EMPLOYEES_PER_PAGE } from "./constants.js";
+import { darkGrey, EMPLOYEES_PER_PAGE } from "./constants.js";
 import { brandColor, brandColorLight, lightGrey } from "./constants.js";
 import { initialEmployees } from "../initialData.js";
 import { translate } from "./localization.js";
@@ -77,7 +77,7 @@ class EmployeeList extends LitElement {
     }
     .view-toggle button:disabled {
       color: ${unsafeCSS(brandColor)};
-      cursor: default;
+      cursor: pointer;
     }
     .employee-list-wrapper,
     .employee-table-wrapper {
@@ -96,7 +96,7 @@ class EmployeeList extends LitElement {
       align-items: center;
       padding: 0.5rem 0;
       margin-bottom: 0.5rem;
-  
+
       min-width: 1280px;
       position: relative;
       border-bottom: solid 1px;
@@ -176,7 +176,9 @@ class EmployeeList extends LitElement {
       color: #fff;
       font-weight: bold;
     }
-
+    .search-input::placeholder {
+      color: #aaa;
+    }
     .modal-overlay {
       position: fixed;
       top: 0;
