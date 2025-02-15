@@ -51,4 +51,4 @@ const translations = {
   },
 };
 
-export const translate = (key, lang = "en") => translations[lang][key] || key;
+export const translate = (key, lang = "en") => translations[lang]?.[key] || key;
