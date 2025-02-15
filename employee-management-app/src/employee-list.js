@@ -5,6 +5,7 @@ import {
   renderDeleteIcon,
   renderTableIcon,
   renderListIcon,
+  renderCloseIcon,
 } from "./icons.js";
 import "./pagination.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
@@ -192,8 +193,17 @@ class EmployeeList extends LitElement {
       border-radius: 5px;
       width: 300px;
     }
-    .modal h2 {
+    .modal h3 {
       margin-top: 0;
+      font-weight: 500;
+      color: ${unsafeCSS(brandColor)};
+    }
+    .modal p {
+      font-size: 14px;
+    }
+    .modal p span {
+      font-size: 14px;
+      font-weight: 500;
     }
     .modal form {
       display: flex;
@@ -206,12 +216,33 @@ class EmployeeList extends LitElement {
       display: flex;
       justify-content: flex-end;
       margin-top: 1rem;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     .modal-buttons button {
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
+      padding: 6px 1rem;
+      font-size: 13px;
       cursor: pointer;
+      border-radius: 10px;
+    }
+    .modal-buttons .proceed {
+      border: none;
+      background-color: ${unsafeCSS(brandColor)};
+      shadow: none !important;
+      outline: none !important;
+      color: #fff;
+      padding: 8px 1rem;
+    }
+    .modal-title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: ${unsafeCSS(brandColor)};
+    }
+    .modal-close-icon {
+      cursor: pointer;
+      position: relative;
+      bottom: 5px;
     }
   `;
 
@@ -362,7 +393,6 @@ class EmployeeList extends LitElement {
   closeModal() {
     this.showModal = false;
   }
-
 
   render() {
     return html`
@@ -520,13 +550,33 @@ class EmployeeList extends LitElement {
         ? html`
             <div class="modal-overlay">
               <div class="modal">
-                <h2>delete employee?</h2>
+                <div class="modal-title-container">
+                  <h3 class="modal-title">
+                    ${translate("confirmDelete", this.lang)}
+                  </h3>
+                  <div @click=${this.closeModal} class="modal-close-icon">
+                    ${renderCloseIcon()}
+                  </div>
+                </div>
+                <p class="modal-text">
+                  ${translate("deleteInfoLeft", this.lang)}
+                  <span>
+                    ${this.paginatedEmployees[this.employeeIndex]
+                      .firstName}${" "}
+                    ${this.paginatedEmployees[this.employeeIndex].lastName}
+                  </span>
+                  ${translate("deleteInfoRight", this.lang)}
+                </p>
                 <form @submit=${this.deleteEmployee}>
                   <div class="modal-buttons">
-                    <button type="button" @click=${this.closeModal}>
+                    <button class="proceed" type="submit">Proceed</button>
+                    <button
+                      class="cancel"
+                      type="button"
+                      @click=${this.closeModal}
+                    >
                       Cancel
                     </button>
-                    <button type="submit">OK</button>
                   </div>
                 </form>
               </div>
