@@ -209,6 +209,7 @@ class EmployeeForm extends LitElement {
             : translate("addEmployeeTitle", this.lang)}
         </h2>
         <form class="form-area" @submit="${this.saveEmployee}">
+          <label> ${translate("firstName", this.lang)} </label>
           <input
             type="text"
             .value="${this.employee.firstName || ""}"
@@ -216,6 +217,8 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("firstName", this.lang)}
             required
           />
+
+          <label> ${translate("lastName", this.lang)} </label>
           <input
             type="text"
             .value="${this.employee.lastName || ""}"
@@ -223,6 +226,8 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("lastName", this.lang)}
             required
           />
+
+          <label> Date of Employement </label>
           <input
             type="date"
             .value="${this.employee.dateOfEmployement || ""}"
@@ -231,6 +236,8 @@ class EmployeeForm extends LitElement {
             placeholder="Date of Employement"
             required
           />
+
+          <label> Date of Birth </label>
           <input
             type="date"
             .value="${this.employee.dateOfBirth || ""}"
@@ -238,6 +245,8 @@ class EmployeeForm extends LitElement {
             placeholder="Date of Birth"
             required
           />
+
+          <label> ${translate("phone", this.lang)} </label>
           <input
             type="text"
             .value="${this.employee.phone || ""}"
@@ -245,6 +254,8 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("phone", this.lang)}
             required
           />
+
+          <label> ${translate("email", this.lang)} </label>
           <input
             type="email"
             .value="${this.employee.email || ""}"
@@ -252,6 +263,8 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("email", this.lang)}
             required
           />
+
+          <label> ${translate("department", this.lang)} </label>
           <input
             type="text"
             .value="${this.employee.department || ""}"
@@ -259,6 +272,8 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("department", this.lang)}
             required
           />
+
+          <label> ${translate("position", this.lang)} </label>
           <input
             type="text"
             .value="${this.employee.position || ""}"
@@ -266,6 +281,7 @@ class EmployeeForm extends LitElement {
             placeholder=${translate("position", this.lang)}
             required
           />
+
           <button class="submit" type="submit">
             ${translate("save", this.lang)}
           </button>
