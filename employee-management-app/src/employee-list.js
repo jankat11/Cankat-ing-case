@@ -53,7 +53,8 @@ class EmployeeList extends LitElement {
       border: 1px solid #ccc;
       border-radius: 4px;
       outline: none;
-      color:#444
+      color:#444;
+      min-width: 182px;
     }
     .view-toggle {
       display: flex;
