@@ -90,12 +90,14 @@ class EmployeeList extends LitElement {
       list-style: none;
       padding: 0;
       min-width: 800px;
+      position:relative;
+      bottom: 14px
     }
     .employee-item {
       display: flex;
       align-items: center;
       padding: 0.5rem 0;
-      margin-bottom: 0.5rem;
+     
 
       min-width: 1280px;
       position: relative;
@@ -175,6 +177,9 @@ class EmployeeList extends LitElement {
       background-color: ${unsafeCSS(brandColor)};
       color: #fff;
       font-weight: bold;
+    }
+    .employee-table td {
+      padding: 1.3rem
     }
     .search-input::placeholder {
       color: #aaa;
