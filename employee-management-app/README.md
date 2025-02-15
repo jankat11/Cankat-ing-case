@@ -46,6 +46,6 @@ On Windows (PowerShell), due to restrictions with single and double quotes, the 
 - Making the **phone number field localized** by suggesting the country phone code from location.
 - Using **flags** in the language dropdown.
 - Adding more validations, **warnings**, and **blacklists** or **whitelists** for form input fields.
-- Working on overall better **UI/UX**.
+- Working on overall better **UI/UX**. 
 - **Selenium tests**
 - Splitting some JavaScript files with dense code blocks into **smaller components**.
