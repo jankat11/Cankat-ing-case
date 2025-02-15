@@ -31,7 +31,7 @@ For state management, no optional third-party library was used. Instead, a robus
 
 ### Testing
 
-Open WC testing was used, with 27 tests written, achieving a 98% code coverage rate across the codebase.
+Open WC testing was used, with 23 tests written, achieving a 98% code coverage rate across the codebase.
 
 ## Important Note
 
