@@ -271,7 +271,7 @@ class EmployeeForm extends LitElement {
             required
           />
 
-          <label> Date of Employement </label>
+          <label> ${translate("dateOfEmployement", this.lang)} </label>
           <input
             type="date"
             .value="${this.employee.dateOfEmployement || ""}"
@@ -281,7 +281,7 @@ class EmployeeForm extends LitElement {
             required
           />
 
-          <label> Date of Birth </label>
+          <label> ${translate("dateOfBirth", this.lang)} </label>
           <input
             type="date"
             .value="${this.employee.dateOfBirth || ""}"
