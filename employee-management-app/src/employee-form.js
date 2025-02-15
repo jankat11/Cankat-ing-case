@@ -65,6 +65,13 @@ class EmployeeForm extends LitElement {
       border-radius: 6px;
       outline: none;
       shadow: none;
+      color: #333
+    }
+    input::placeholder {
+      color: #777
+    }
+    select::placeholder {
+      color: #777
     }
     .modal-buttons {
       display: flex;
@@ -131,7 +138,7 @@ class EmployeeForm extends LitElement {
       shadow-inline: none;
       color: #666;
     }
-    input[type="date"]::-webkit-datetime-edit {
+    input[type="date"]::-webkit-datetime-edit::placeholder {
       color: #666;
     }
 
