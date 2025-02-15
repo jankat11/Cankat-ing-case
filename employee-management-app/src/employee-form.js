@@ -59,13 +59,12 @@ class EmployeeForm extends LitElement {
       margin: 0.5rem 0 0.2rem;
     }
     input {
-    
       padding: 0.5rem;
       font-size: 1rem;
-      border: solid 1px #aaa;
+      border: solid 1px #bdbdbd;
       border-radius: 6px;
       outline: none;
-      shadow:none;
+      shadow: none;
     }
     .modal-buttons {
       display: flex;
@@ -105,7 +104,8 @@ class EmployeeForm extends LitElement {
       color: white;
       background-color: ${unsafeCSS(brandColor)};
       border: none;
-      border-radius: 6px
+      border-radius: 6px;
+      margin-top: 16px;
     }
     .form-area {
       display: flex;
@@ -131,6 +131,10 @@ class EmployeeForm extends LitElement {
       shadow-inline: none;
       color: #666;
     }
+    input[type="date"]::-webkit-datetime-edit {
+      color: #666; 
+    }
+
     @media (min-width: 600px) {
       .edit-title {
         color: ${unsafeCSS(brandColor)};
