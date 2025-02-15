@@ -2,6 +2,7 @@ import { LitElement, html, css, unsafeCSS } from "lit";
 import router from "./router.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
 import { brandColor } from "../constants.js";
+import { translate } from "./localization.js";
 
 class EmployeeForm extends LitElement {
   static properties = {
@@ -10,6 +11,7 @@ class EmployeeForm extends LitElement {
     id: { type: String },
     isEdit: { type: Boolean },
     showModal: { type: Boolean },
+    lang: { type: String },
   };
 
   constructor() {
@@ -18,6 +20,8 @@ class EmployeeForm extends LitElement {
     this.isEdit = false;
     this.id = null;
     this.showModal = false;
+    this.lang =
+      localStorage.getItem("language") || document.documentElement.lang || "en";
   }
 
   static styles = css`
@@ -103,89 +107,40 @@ class EmployeeForm extends LitElement {
     }
   `;
 
-  render() {
-    return html`
-      <div class="form-container">
-        <h2 class="edit-title">${this.isEdit ? "Edit" : "Add"} Employee</h2>
-        <form class="form-area" @submit="${this.saveEmployee}">
-          <input
-            type="text"
-            .value="${this.employee.firstName || ""}"
-            @input="${(e) => (this.employee.firstName = e.target.value)}"
-            placeholder="First Name"
-            required
-          />
-          <input
-            type="text"
-            .value="${this.employee.lastName || ""}"
-            @input="${(e) => (this.employee.lastName = e.target.value)}"
-            placeholder="Last Name"
-            required
-          />
-          <input
-            type="date"
-            .value="${this.employee.dateOfEmployement || ""}"
-            @input="${(e) => (this.employee.dateOfEmployement = e.target.value)}"
-            placeholder="Date of Employement"
-            required
-          />
-          <input
-            type="date"
-            .value="${this.employee.dateOfBirth || ""}"
-            @input="${(e) => (this.employee.dateOfBirth = e.target.value)}"
-            placeholder="Date of Birth"
-            required
-          />
-          <input
-            type="text"
-            .value="${this.employee.phone || ""}"
-            @input="${(e) => (this.employee.phone = e.target.value)}"
-            placeholder="Phone"
-            required
-          />
-          <input
-            type="email"
-            .value="${this.employee.email || ""}"
-            @input="${(e) => (this.employee.email = e.target.value)}"
-            placeholder="Email"
-            required
-          />
-          <input
-            type="text"
-            .value="${this.employee.department || ""}"
-            @input="${(e) => (this.employee.department = e.target.value)}"
-            placeholder="Department"
-            required
-          />
-          <input
-            type="text"
-            .value="${this.employee.position || ""}"
-            @input="${(e) => (this.employee.position = e.target.value)}"
-            placeholder="Position"
-            required
-          />
-          <button class="submit" type="submit">Save</button>
-        </form>
-      </div>
+  connectedCallback() {
+    super.connectedCallback();
 
-      ${this.showModal
-        ? html`
-            <div class="modal-overlay">
-              <div class="modal">
-                <h2>submit changes?</h2>
-                <form @submit=${this.editEmployee}>
-                  <div class="modal-buttons">
-                    <button type="button" @click=${this.closeModal}>
-                      Cancel
-                    </button>
-                    <button type="submit">OK</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          `
-        : ""}
-    `;
+    // document.documentElement'in lang attribute'undaki değişiklikleri dinlemek için MutationObserver kullanıyoruz
+    this._langObserver = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "lang"
+        ) {
+          this.lang = document.documentElement.lang || "en";
+        }
+      }
+    });
+    this._langObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"],
+    });
+
+    window.addEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
+  }
+
+  disconnectedCallback() {
+    if (this._langObserver) {
+      this._langObserver.disconnect();
+    }
+    window.removeEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
+    super.disconnectedCallback();
   }
 
   onBeforeEnter(location) {
@@ -244,6 +199,94 @@ class EmployeeForm extends LitElement {
   closeModal() {
     this.showModal = false;
   }
+
+  render() {
+    return html`
+      <div class="form-container">
+        <h2 class="edit-title">${this.isEdit ? "Edit" : "Add"} Employee</h2>
+        <form class="form-area" @submit="${this.saveEmployee}">
+          <input
+            type="text"
+            .value="${this.employee.firstName || ""}"
+            @input="${(e) => (this.employee.firstName = e.target.value)}"
+            placeholder=${translate("firstName", this.lang)}
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.lastName || ""}"
+            @input="${(e) => (this.employee.lastName = e.target.value)}"
+            placeholder=${translate("lastName", this.lang)}
+            required
+          />
+          <input
+            type="date"
+            .value="${this.employee.dateOfEmployement || ""}"
+            @input="${(e) =>
+              (this.employee.dateOfEmployement = e.target.value)}"
+            placeholder="Date of Employement"
+            required
+          />
+          <input
+            type="date"
+            .value="${this.employee.dateOfBirth || ""}"
+            @input="${(e) => (this.employee.dateOfBirth = e.target.value)}"
+            placeholder="Date of Birth"
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.phone || ""}"
+            @input="${(e) => (this.employee.phone = e.target.value)}"
+            placeholder=${translate("phone", this.lang)}
+            required
+          />
+          <input
+            type="email"
+            .value="${this.employee.email || ""}"
+            @input="${(e) => (this.employee.email = e.target.value)}"
+            placeholder=${translate("email", this.lang)}
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.department || ""}"
+            @input="${(e) => (this.employee.department = e.target.value)}"
+            placeholder=${translate("department", this.lang)}
+            required
+          />
+          <input
+            type="text"
+            .value="${this.employee.position || ""}"
+            @input="${(e) => (this.employee.position = e.target.value)}"
+            placeholder=${translate("position", this.lang)}
+            required
+          />
+          <button class="submit" type="submit">${translate("save", this.lang)}</button>
+        </form>
+      </div>
+
+      ${this.showModal
+        ? html`
+            <div class="modal-overlay">
+              <div class="modal">
+                <h2>submit changes?</h2>
+                <form @submit=${this.editEmployee}>
+                  <div class="modal-buttons">
+                    <button type="button" @click=${this.closeModal}>
+                      Cancel
+                    </button>
+                    <button type="submit">OK</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          `
+        : ""}
+    `;
+  }
+
+
 }
 
 customElements.define("employee-form", EmployeeForm);

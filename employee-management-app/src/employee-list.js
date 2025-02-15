@@ -10,6 +10,7 @@ import "./pagination.js";
 import { EMPLOYEES_PER_PAGE } from "../constants.js";
 import { brandColor, brandColorLight } from "../constants.js";
 import { initialEmployees } from "../initialData.js";
+import { translate } from "./localization.js";
 
 class EmployeeList extends LitElement {
   static properties = {
@@ -20,6 +21,7 @@ class EmployeeList extends LitElement {
     currentPage: { type: Number },
     searchTerm: { type: String },
     selectedView: { type: String },
+    lang: { type: String }
   };
 
   static styles = css`
@@ -50,19 +52,17 @@ class EmployeeList extends LitElement {
       font-size: 14px;
       border: 1px solid #eee;
       border-radius: 4px;
-      outline:none
+      outline: none;
     }
     .view-toggle {
       display: flex;
       gap: 10px;
     }
-
     @media (max-width: 600px) {
       .header-container {
         flex-direction: column;
         align-items: flex-start;
       }
-
       .view-toggle {
         margin-top: 10px;
         align-self: end;
@@ -73,6 +73,7 @@ class EmployeeList extends LitElement {
       outline: none;
       background-color: transparent;
       color: ${unsafeCSS(brandColorLight)};
+      cursor: pointer;
     }
     .view-toggle button:disabled {
       color: ${unsafeCSS(brandColor)};
@@ -185,9 +186,49 @@ class EmployeeList extends LitElement {
     this.currentPage = 1;
     this.searchTerm = "";
     this.selectedView = "list"; // Varsayılan liste görünümü
+
+    // Başlangıç dilini localStorage veya document.documentElement üzerinden alıyoruz
+    this.lang =
+      localStorage.getItem("language") || document.documentElement.lang || "en";
   }
 
-  // Arama terimine göre filtrelenmiş çalışanları döndüren getter
+  connectedCallback() {
+    super.connectedCallback();
+
+    // document.documentElement'in lang attribute'undaki değişiklikleri dinlemek için MutationObserver kullanıyoruz
+    this._langObserver = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "lang"
+        ) {
+          this.lang = document.documentElement.lang || "en";
+        }
+      }
+    });
+    this._langObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"],
+    });
+
+    window.addEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
+  }
+
+  disconnectedCallback() {
+    if (this._langObserver) {
+      this._langObserver.disconnect();
+    }
+    window.removeEventListener(
+      "vaadin-router-location-changed",
+      this._onLocationChanged
+    );
+    super.disconnectedCallback();
+  }
+
+  // Filtrelenmiş çalışanları döndüren getter
   get filteredEmployees() {
     if (!this.searchTerm.trim()) {
       return this.employees;
@@ -205,30 +246,14 @@ class EmployeeList extends LitElement {
     return Math.ceil(this.filteredEmployees.length / EMPLOYEES_PER_PAGE);
   }
 
-  // Geçerli sayfadaki çalışanları slice'lar
+  // Geçerli sayfadaki çalışanları dilimleyip döndürür
   get paginatedEmployees() {
     const start = (this.currentPage - 1) * EMPLOYEES_PER_PAGE;
     const end = start + EMPLOYEES_PER_PAGE;
     return this.filteredEmployees.slice(start, end);
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    window.addEventListener(
-      "vaadin-router-location-changed",
-      this._onLocationChanged
-    );
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener(
-      "vaadin-router-location-changed",
-      this._onLocationChanged
-    );
-    super.disconnectedCallback();
-  }
-
-  // Route değiştiğinde URL'i kontrol edip currentPage'i günceller
+  // Route değiştiğinde currentPage güncelleniyor
   _onLocationChanged = (e) => {
     const { pathname } = e.detail.location;
     const match = pathname.match(/^\/employees\/page\/(\d+)/);
@@ -295,11 +320,13 @@ class EmployeeList extends LitElement {
     return html`
       <div class="header-container">
         <div class="header-left-content">
-          <h1 class="employee-list-title">Employee List</h1>
+          <h1 class="employee-list-title">
+            ${translate("employeeList", this.lang)}
+          </h1>
           <input
             type="text"
             class="search-input"
-            placeholder="Search by first or last name"
+            placeholder=${translate("search", this.lang)}
             .value=${this.searchTerm}
             @input=${this.handleSearch}
           />
@@ -327,19 +354,21 @@ class EmployeeList extends LitElement {
                     <ul class="employee-list">
                       <li class="employee-item employee-header">
                         <div class="employee-name employee-header-name">
-                          <span>first name</span>
-                          <span>last name</span>
+                          <span>${translate("firstName", this.lang)}</span>
+                          <span>${translate("lastName", this.lang)}</span>
                         </div>
                         <div class="employee-data employee-header-data">
-                          <div>Date of Employment</div>
-                          <div>Date of Birth</div>
-                          <div>Phone</div>
-                          <div>Email</div>
-                          <div>Department</div>
-                          <div>Position</div>
+                          <div>
+                            ${translate("dateOfEmployement", this.lang)}
+                          </div>
+                          <div>${translate("dateOfBirth", this.lang)}</div>
+                          <div>${translate("phone", this.lang)}</div>
+                          <div>${translate("email", this.lang)}</div>
+                          <div>${translate("department", this.lang)}</div>
+                          <div>${translate("position", this.lang)}</div>
                         </div>
                         <div class="employee-actions">
-                          <div>actions</div>
+                          <div>${translate("actions", this.lang)}</div>
                         </div>
                       </li>
                       ${this.paginatedEmployees.map(
@@ -386,15 +415,15 @@ class EmployeeList extends LitElement {
                     <table class="employee-table">
                       <thead>
                         <tr>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Date of Employment</th>
-                          <th>Date of Birth</th>
-                          <th>Phone</th>
-                          <th>Email</th>
-                          <th>Department</th>
-                          <th>Position</th>
-                          <th>Actions</th>
+                          <th>${translate("firstName", this.lang)}</th>
+                          <th>${translate("lastName", this.lang)}</th>
+                          <th>${translate("dateOfEmployement", this.lang)}</th>
+                          <th>${translate("dateOfBirth", this.lang)}</th>
+                          <th>${translate("phone", this.lang)}</th>
+                          <th>${translate("email", this.lang)}</th>
+                          <th>${translate("department", this.lang)}</th>
+                          <th>${translate("position", this.lang)}</th>
+                          <th>${translate("actions", this.lang)}</th>
                         </tr>
                       </thead>
                       <tbody>
