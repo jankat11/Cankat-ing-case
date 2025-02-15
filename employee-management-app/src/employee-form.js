@@ -302,6 +302,7 @@ class EmployeeForm extends LitElement {
           <label> ${translate("email", this.lang)} </label>
           <input
             type="email"
+            class="email"
             .value="${this.employee.email || ""}"
             @input="${(e) => (this.employee.email = e.target.value)}"
             placeholder=${translate("email", this.lang)}
