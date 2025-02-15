@@ -3,7 +3,6 @@ import '../src/employee-form.js';
 
 describe('Employee Form Component', () => {
   before(() => {
-    // Mock window.router.navigate() to prevent errors
     window.router = { navigate: () => {} };
   });
 
@@ -140,7 +139,6 @@ describe('Employee Form Component', () => {
     el.saveEmployee(new Event('submit'));
     await el.updateComplete;
     expect(el.showModal).to.be.true;
-    // Simulate cancel button click in modal
     const cancelButton = el.shadowRoot.querySelector(
       '.modal-buttons button[type="button"]'
     );
@@ -169,7 +167,6 @@ describe('Employee Form Component', () => {
     await el.updateComplete;
     el.saveEmployee(new Event('submit'));
     await el.updateComplete;
-    // Simulate proceeding in the modal (form submit inside modal)
     const modalForm = el.shadowRoot.querySelector('.modal form');
     modalForm.dispatchEvent(
       new Event('submit', { bubbles: true, cancelable: true })
@@ -182,13 +179,10 @@ describe('Employee Form Component', () => {
 
   it('renders correct title for add and edit modes', async () => {
     const el = await fixture(html`<employee-form></employee-form>`);
-    // Add modu: başlık addEmployeeTitle çevirisi döndürüyor (örneğin "Add Employee")
     el.isEdit = false;
     await el.updateComplete;
     const title = el.shadowRoot.querySelector('.edit-title');
     expect(title.textContent).to.contain('Add Employee');
-
-    // Edit modu: başlık editEmployeeTitle çevirisi döndürüyor (örneğin "Edit Employee")
     el.isEdit = true;
     await el.updateComplete;
     expect(title.textContent).to.contain('Edit Employee');
@@ -197,10 +191,8 @@ describe('Employee Form Component', () => {
   it('updates language when document lang attribute changes', async () => {
     const el = await fixture(html`<employee-form></employee-form>`);
     document.documentElement.lang = 'fr';
-    // MutationObserver'ın tetiklenmesi için kısa bir bekleme
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(el.lang).to.equal('fr');
-    // Diğer testleri etkilememesi için dili tekrar sıfırlıyoruz.
     document.documentElement.lang = 'en';
   });
 

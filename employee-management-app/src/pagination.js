@@ -1,5 +1,5 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
-import { brandColor, darkGrey } from "./constants";
+import { brandColor } from "./constants";
 import { renderLeftArrow, renderRightArrow } from "./icons";
 import { getPagesList } from "./utils";
 
@@ -76,7 +76,7 @@ class PaginationComponent extends LitElement {
 
     return html`
       <div class="pagination">
-        <!-- Previous Butonu -->
+  
         <button
           class="pagination-arrow"
           ?disabled=${this.currentPage === 1}
@@ -85,7 +85,7 @@ class PaginationComponent extends LitElement {
           ${renderLeftArrow()}
         </button>
 
-        <!-- Sayfa Numaraları -->
+    
         ${pages.map((page) => {
           if (page === "...") {
             return html`<span class="dots">...</span>`;
@@ -102,7 +102,7 @@ class PaginationComponent extends LitElement {
           `;
         })}
 
-        <!-- Next Butonu -->
+   
         <button
           class="pagination-arrow"
           ?disabled=${this.currentPage === this.totalPages}

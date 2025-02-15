@@ -3,7 +3,6 @@ import sinon from 'sinon';
 import '../src/employee-list.js';
 
 describe('Employee List Component', () => {
-  // Her testten önce localStorage'ı temizleyelim.
   beforeEach(() => {
     localStorage.clear();
   });
@@ -78,20 +77,14 @@ describe('Employee List Component', () => {
     el.employees = testEmployees;
     el.currentPage = 1;
     await el.updateComplete;
-
-    // İlk employee için modalı açalım.
     el.openModal(0);
     await el.updateComplete;
     expect(el.showModal).to.be.true;
-
-    // Modal içerisindeki formu gönderelim.
     const modalForm = el.shadowRoot.querySelector('.modal form');
     modalForm.dispatchEvent(
       new Event('submit', { bubbles: true, cancelable: true })
     );
     await el.updateComplete;
-
-    // id'si 1 olan kayıt silinmiş olmalı.
     expect(el.employees.length).to.equal(1);
     expect(el.employees[0].id).to.equal(2);
     const storedEmployees = JSON.parse(localStorage.getItem('employees'));
@@ -101,18 +94,15 @@ describe('Employee List Component', () => {
 
   it('changes view mode when view toggle buttons are clicked', async () => {
     const el = await fixture(html`<employee-list></employee-list>`);
-    // Varsayılan görünüm "list" olmalı.
     expect(el.selectedView).to.equal('list');
 
     const viewToggleButtons = el.shadowRoot.querySelectorAll('.view-toggle button');
     expect(viewToggleButtons.length).to.equal(2);
 
-    // "table" görünümünü seçelim.
     viewToggleButtons[1].click();
     await el.updateComplete;
     expect(el.selectedView).to.equal('table');
 
-    // Tekrar "list" görünümüne dönelim.
     viewToggleButtons[0].click();
     await el.updateComplete;
     expect(el.selectedView).to.equal('list');
@@ -121,10 +111,8 @@ describe('Employee List Component', () => {
   it('updates language when document lang attribute changes', async () => {
     const el = await fixture(html`<employee-list></employee-list>`);
     document.documentElement.lang = 'fr';
-    // MutationObserver’ın tetiklenmesi için kısa bir bekleme.
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(el.lang).to.equal('fr');
-    // Diğer testleri etkilememesi için dili eski haline getiriyoruz.
     document.documentElement.lang = 'en';
   });
 

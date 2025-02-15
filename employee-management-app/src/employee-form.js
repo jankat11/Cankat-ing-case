@@ -148,8 +148,6 @@ class EmployeeForm extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    // document.documentElement'in lang attribute'undaki değişiklikleri dinlemek için MutationObserver kullanıyoruz
     this._langObserver = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         if (

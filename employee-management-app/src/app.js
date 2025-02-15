@@ -89,11 +89,12 @@ class EmployeeManagementApp extends LitElement {
               ${renderPlusIcon()}
               <span>${translate("addNew", this.lang)}</span>
             </a>
-            <!-- Dil seçimi dropdown'ı -->
+       
             <select @change="${this.changeLanguage}">
               <option value="en" ?selected=${this.lang === "en"}>en</option>
               <option value="tr" ?selected=${this.lang === "tr"}>tr</option>
             </select>
+            
           </nav>
         </div>
       </div>

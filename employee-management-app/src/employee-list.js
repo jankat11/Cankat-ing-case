@@ -8,7 +8,7 @@ import {
   renderCloseIcon,
 } from "./icons.js";
 import "./pagination.js";
-import { darkGrey, EMPLOYEES_PER_PAGE } from "./constants.js";
+import { EMPLOYEES_PER_PAGE } from "./constants.js";
 import { brandColor, brandColorLight, lightGrey } from "./constants.js";
 import { initialEmployees } from "../initialData.js";
 import { translate } from "./localization.js";
@@ -85,7 +85,7 @@ class EmployeeList extends LitElement {
       width: 100%;
       background-color: #fff;
     }
-    /* Liste stili */
+
     .employee-list {
       list-style: none;
       padding: 0;
@@ -158,7 +158,7 @@ class EmployeeList extends LitElement {
     .empty-list {
       color: ${unsafeCSS(brandColor)};
     }
-    /* Tablo stili */
+
     .employee-table {
       width: 100%;
       border-collapse: collapse;
@@ -308,8 +308,6 @@ class EmployeeList extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    // document.documentElement'in lang attribute'undaki değişiklikleri dinlemek için MutationObserver kullanıyoruz
     this._langObserver = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         if (
@@ -342,7 +340,6 @@ class EmployeeList extends LitElement {
     super.disconnectedCallback();
   }
 
-  // Filtrelenmiş çalışanları döndüren getter
   get filteredEmployees() {
     if (!this.searchTerm.trim()) {
       return this.employees;
@@ -355,19 +352,16 @@ class EmployeeList extends LitElement {
     );
   }
 
-  // Toplam sayfa sayısı (her sayfada EMPLOYEES_PER_PAGE kayıt olacak)
   get totalPages() {
     return Math.ceil(this.filteredEmployees.length / EMPLOYEES_PER_PAGE);
   }
 
-  // Geçerli sayfadaki çalışanları dilimleyip döndürür
   get paginatedEmployees() {
     const start = (this.currentPage - 1) * EMPLOYEES_PER_PAGE;
     const end = start + EMPLOYEES_PER_PAGE;
     return this.filteredEmployees.slice(start, end);
   }
 
-  // Route değiştiğinde currentPage güncelleniyor
   _onLocationChanged = (e) => {
     const { pathname } = e.detail.location;
     const match = pathname.match(/^\/employees\/page\/(\d+)/);
@@ -421,13 +415,11 @@ class EmployeeList extends LitElement {
     this.currentPage = e.detail.page;
   }
 
-  // Arama kutusu değişikliklerini işler
   handleSearch(e) {
     this.searchTerm = e.target.value;
     this.currentPage = 1;
   }
 
-  // Görünüm modu değiştirir ("list" veya "table")
   changeView(mode) {
     this.selectedView = mode;
     localStorage.setItem("selectedView", mode);
